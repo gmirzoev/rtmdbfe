@@ -1,0 +1,20 @@
+.footer {
+  background-color: #0d7575;
+  padding: 20px;
+}
+
+.powered-by {
+  &-text {
+    line-height: 60px;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  &-logo {
+    background-image: url('assets/images/powered-by.svg');
+    width: 152px;
+    height: 60px;
+    background-size: cover;
+    float: right;
+  }
+}

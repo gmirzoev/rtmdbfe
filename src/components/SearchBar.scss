@@ -1,0 +1,48 @@
+.search-bar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+
+  &-input-wrapper {
+    flex: 1;
+  }
+
+  &-input {
+    padding: 5px 10px;
+    width: 100%;
+  }
+
+  &-btn {
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    background: #318686;
+    border: none;
+    outline: none;
+
+    &:active {
+      box-shadow: inset 1px 1px 6px #555;
+    }
+  }
+
+  &-error {
+    display: block;
+    padding: 5px;
+    background: #ff7d7d;
+    color: #fff;
+  }
+}
+
+@media (min-width: 481px) {
+  .search-bar {
+    margin: 0 10px 20px 10px;
+
+    &-input-wrapper {
+      flex: initial;
+    }
+  }
+}
+
+@media (min-width: 981px) {
+
+}

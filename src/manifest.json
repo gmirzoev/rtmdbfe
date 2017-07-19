@@ -1,0 +1,27 @@
+{
+  "short_name": "RTMDBFE",
+  "name": "RTMDBFE APP",
+  "description": "Progressive web application demonstration",
+  "start_url": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#29BDBB",
+  "background_color": "#29BDBB",
+  "icons": [
+    {
+      "src": "assets/images/rtmdbfe144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/images/rtmdbfe168.png",
+      "sizes": "168x168",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/images/rtmdbfe192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

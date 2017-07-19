@@ -1,0 +1,16 @@
+.main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #eee;
+}
+
+@media (min-width: 981px) {
+  .main {
+    &-inner-wrapper {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+  }
+}

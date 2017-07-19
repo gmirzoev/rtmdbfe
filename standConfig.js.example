@@ -1,0 +1,12 @@
+module.exports = {
+  CONFIG: {
+    API_HOST: 'https://api.themoviedb.org',
+    API_VERSION: '3',
+    API_KEY: '',
+  },
+  DEV_CONFIG: {
+    API_HOST: 'https://api.themoviedb.org',
+    API_VERSION: '3',
+    API_KEY: '',
+  },
+};
