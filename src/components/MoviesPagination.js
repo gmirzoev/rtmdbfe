@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import { multiClass } from 'utils/utils';
 import * as styles from './MoviesPagination.scss';
 
 export const buildPagesArr = (pagesCount, activePage, visiblePages) => {
@@ -44,7 +45,10 @@ class MoviesPagination extends PureComponent {
     const buttonsList = buildPagesArr(pagesCount, activePage, visiblePagesCount)
       .map(btnVal => (
         <button
-          className={`${styles.moviesPaginationItem} ${activePage === btnVal ? styles.moviesPaginationItemActive : ''}`}
+          className={multiClass(
+            styles.moviesPaginationItem,
+            { clsName: styles.moviesPaginationItemActive, isActive: activePage === btnVal },
+          )}
           key={btnVal}
           onClick={() => btnVal !== activePage && onPageChange(btnVal)}
         >

@@ -22,16 +22,17 @@ self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys()
       .then(keyList =>
-        Promise.all(keyList.map(key => {
-          if (!cacheWhitelist.includes(key)) {
+        Promise.all(
+          keyList.map(key => {
+            if (cacheWhitelist.includes(key)) return false;
             return caches.delete(key);
-          }
-          return false;
-        })),
+          }),
+        ),
       ),
   );
 });
 
+// todo: add cache lifetime
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.match(event.request)

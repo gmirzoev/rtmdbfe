@@ -1,7 +1,7 @@
 import { TOGGLE_NAVIGATION_VISIBILITY } from 'constants/actionTypes';
 
 const initialState = {
-  isNavigationVisible: true,
+  isNavigationVisible: false,
 };
 
 const uiReducer = (state = initialState, action) => {

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MoviesPagination from './MoviesPagination';
 import MoviesList from './MoviesList';
+import Loading from './Loading';
+import * as styles from './Movies.scss';
 
 class Movies extends Component {
   constructor(props) {
@@ -25,14 +27,14 @@ class Movies extends Component {
     const movies = this.props.movies;
     const activePage = this.state.activePage;
     return (
-      <div>
+      <div className={styles.movies}>
         <MoviesPagination
           pagesCount={movies.pages}
           activePage={activePage}
           onPageChange={this.changePage}
         />
         {movies.isFetching ?
-          <div style={{ textAlign: 'center' }}>Loading...</div> :
+          <Loading /> :
           <MoviesList movies={movies.items} />
         }
       </div>

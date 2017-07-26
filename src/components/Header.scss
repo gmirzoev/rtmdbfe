@@ -2,11 +2,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #fff;
-  font-size: 20px;
-  font-weight: bold;
   background-color: #0d7575;
   padding: 10px 20px;
+
+  &-logo {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+  }
 
   &-navigation-btn {
     display: block;
@@ -15,5 +19,11 @@
     width: 32px;
     height: 32px;
     cursor: pointer;
+  }
+}
+
+@media (min-width: 769px) {
+  .header-navigation-btn {
+    display: none;
   }
 }

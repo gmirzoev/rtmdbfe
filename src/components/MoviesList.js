@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import MovieCard from './MovieCard';
 
 const MoviesList = ({ movies }) => {
-  const { secure_base_url: BASE_URL, poster_sizes } = JSON.parse(localStorage.getItem('TMDB_CONFIG')).images;
+  const { secure_base_url: BASE_URL, poster_sizes } = process.env.TMDB_CONFIG.images;
   return (
     <div>
       {

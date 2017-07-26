@@ -1,9 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
+import { multiClass } from 'utils/utils';
 import * as styles from './Navigation.scss';
 
-const Navigation = () => (
-  <nav className={styles.nav}>
+const Navigation = ({ isVisible }) => (
+  <nav
+    className={multiClass(
+      styles.nav,
+      { clsName: styles.navActive, isActive: isVisible },
+    )}
+  >
     <ul className={styles.navItems}>
       <li className={styles.navItem}>
         <NavLink
@@ -58,5 +65,9 @@ const Navigation = () => (
     </ul>
   </nav>
 );
+
+Navigation.propTypes = {
+  isVisible: PropTypes.bool.isRequired,
+};
 
 export default Navigation;
