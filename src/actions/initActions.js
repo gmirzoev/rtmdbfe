@@ -15,7 +15,9 @@ export const getAppConfig = () => {
           return resolve(res);
         })
         .catch(err => {
-          toastr.error('Error', err.status_message);
+          if (err.status_message) {
+            toastr.error('Error', err.status_message);
+          }
           return reject(err.status_message);
         });
     }),

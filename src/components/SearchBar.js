@@ -1,7 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+// @flow
+import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import * as styles from './SearchBar.scss';
+
+// todo: refactor this mess
 
 const validate = values => {
   const errors = {};
@@ -13,19 +15,42 @@ const validate = values => {
   return errors;
 };
 
-const RenderSearchField = ({ input, type, meta: { touched, error } }) => ( // eslint-disable-line
-  <div className={styles.searchBarInputWrapper}>
-    <input
-      {...input}
-      className={styles.searchBarInput}
-      placeholder="Search..."
-      type={type}
-    />
-    {touched && error && <span className={styles.searchBarError}>{error}</span>}
-  </div>
-);
+class RenderSearchField extends Component {
+  componentDidMount() {
+    this.searchInput.focus();
+  }
 
-const SearchBar = ({ handleSubmit, _pristine, _reset, submitting }) => (
+  props: {
+    input: any;
+    type: string;
+    meta: Object;
+  };
+
+  searchInput: HTMLInputElement;
+
+  render() {
+    const { input, type, meta: { touched, error } } = this.props;
+    return (
+      <div className={styles.searchBarInputWrapper}>
+        <input
+          {...input}
+          className={styles.searchBarInput}
+          placeholder="Search..."
+          type={type}
+          ref={searchInput => { this.searchInput = searchInput; }}
+        />
+        {touched && error && <span className={styles.searchBarError}>{error}</span>}
+      </div>
+    );
+  }
+}
+
+type searchFormType = {
+  handleSubmit: Function,
+  submitting: boolean,
+}
+
+const SearchForm = ({ handleSubmit, submitting }: searchFormType) => (
   <form
     className={styles.searchBar}
     onSubmit={handleSubmit}
@@ -45,14 +70,7 @@ const SearchBar = ({ handleSubmit, _pristine, _reset, submitting }) => (
   </form>
 );
 
-SearchBar.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  _pristine: PropTypes.bool,
-  _reset: PropTypes.func,
-  submitting: PropTypes.bool.isRequired,
-};
-
 export default reduxForm({
   form: 'search',
   validate,
-})(SearchBar);
+})(SearchForm);

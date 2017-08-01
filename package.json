@@ -5,14 +5,21 @@
     "start": "webpack-dashboard -- ./node_modules/.bin/webpack-dev-server --open",
     "prebuild": "rm -rf ./dist",
     "build": "NODE_ENV=production ./node_modules/.bin/webpack -p --progress",
-    "test": "jest --verbose --coverage",
-    "lint": "./node_modules/.bin/eslint src/**/*.{js,jsx}"
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "flow": "./node_modules/.bin/flow check"
   },
   "jest": {
+    "snapshotSerializers": [
+      "jest-serializer-enzyme"
+    ],
     "moduleDirectories": [
       "node_modules",
       "src"
     ],
+    "moduleNameMapper": {
+      "^.+\\.(css|scss)$": "identity-obj-proxy"
+    },
     "transform": {
       "^.+\\.js$": "babel-jest"
     }
@@ -27,17 +34,21 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
-    "react-redux-toastr": "^7.0.0",
-    "react-router-dom": "^4.1.1",
+    "react-redux-toastr": "^7.1.0",
+    "react-router-dom": "^4.1.2",
     "redux": "^3.7.0",
-    "redux-form": "^7.0.0",
+    "redux-form": "^7.0.3",
     "redux-promise-middleware": "^4.3.0",
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
+    "babel-eslint": "^7.2.3",
     "babel-jest": "^20.0.3",
     "babel-loader": "^7.1.0",
+    "babel-plugin-dynamic-import-webpack": "^1.0.1",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
@@ -45,26 +56,33 @@
     "babel-preset-react": "^6.24.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.4",
+    "enzyme": "^2.9.1",
     "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^15.0.1",
+    "eslint-config-airbnb": "^15.1.0",
     "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-loader": "^1.9.0",
+    "eslint-plugin-flowtype": "^2.35.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.0.1",
     "eslint-plugin-react": "^7.1.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^0.11.2",
-    "html-webpack-plugin": "^2.29.0",
+    "flow-bin": "^0.51.1",
+    "flow-typed": "^2.1.5",
+    "html-webpack-plugin": "^2.30.1",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^20.0.4",
-    "nock": "^9.0.13",
+    "jest-serializer-enzyme": "^1.0.0",
+    "nock": "^9.0.14",
     "node-sass": "^4.5.3",
+    "preload-webpack-plugin": "^1.2.3",
+    "react-test-renderer": "^15.6.1",
     "redux-immutable-state-invariant": "^2.0.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "sw-precache-webpack-plugin": "^0.11.4",
-    "webpack": "^3.2.0",
+    "webpack": "^3.4.1",
     "webpack-dashboard": "^0.4.0",
-    "webpack-dev-server": "^2.5.0",
-    "webpack-manifest-plugin": "^1.1.2"
+    "webpack-dev-server": "^2.6.1"
   }
 }

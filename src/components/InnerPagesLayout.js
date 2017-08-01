@@ -1,8 +1,8 @@
+// @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAppConfig } from 'actions/initActions';
 import { toggleNavigationVisibility } from 'actions/uiActions';
-import PropTypes from 'prop-types';
 import Header from './Header';
 import Navigation from './Navigation';
 import Main from './Main';
@@ -15,35 +15,56 @@ class InnerPagesLayout extends Component {
     this.props.getAppConfig();
   }
 
+  props: {
+    getAppConfig: Function,
+    isAppInitialized: boolean,
+    initializationError: boolean,
+    isNavigationVisible: boolean,
+    toggleNavVisibility: Function,
+    children: any,
+  };
+
   render() {
-    const { isAppInitialized, isNavigationVisible, toggleNavVisibility, children } = this.props;
+    const {
+      isAppInitialized,
+      initializationError,
+      isNavigationVisible,
+      toggleNavVisibility,
+      children,
+    } = this.props;
+
+    let component;
+    if (initializationError) {
+      component = (
+        <div className={styles.initError}>
+          <div>An error has occurred during application initialization.</div>
+          <div>Please check your internet connection and try to refresh the page.</div>
+        </div>
+      );
+    } else if (!initializationError && !isAppInitialized) {
+      component = <Loading />;
+    } else {
+      component = children;
+    }
+
     return (
       <div className={styles.innerPagesLayout}>
         <Header handleNavigationClick={toggleNavVisibility} />
         <Navigation isVisible={isNavigationVisible} />
-        <Main>
-          {isAppInitialized ? children : <Loading />}
-        </Main>
+        <Main>{component}</Main>
         <Footer />
       </div>
     );
   }
 }
 
-InnerPagesLayout.propTypes = {
-  getAppConfig: PropTypes.func.isRequired,
-  isAppInitialized: PropTypes.bool.isRequired,
-  isNavigationVisible: PropTypes.bool.isRequired,
-  toggleNavVisibility: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired,
-};
-
 const mapStateToProps = state => ({
   isAppInitialized: state.init.requests === 0,
+  initializationError: state.init.error,
   isNavigationVisible: state.ui.isNavigationVisible,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Function) => ({
   toggleNavVisibility: () => dispatch(toggleNavigationVisibility()),
   getAppConfig: () => dispatch(getAppConfig()),
 });

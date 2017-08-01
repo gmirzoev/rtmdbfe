@@ -6,6 +6,7 @@ import {
 
 const initialState = {
   requests: null,
+  error: false,
 };
 
 const initReducer = (state = initialState, action) => {
@@ -14,12 +15,18 @@ const initReducer = (state = initialState, action) => {
       return {
         ...state,
         requests: state.requests === null ? 1 : state.requests + 1,
+        error: false,
       };
     case GET_APP_CONFIG_FULFILLED:
-    case GET_APP_CONFIG_REJECTED:
       return {
         ...state,
         requests: state.requests > 1 ? state.requests - 1 : 0,
+      };
+    case GET_APP_CONFIG_REJECTED:
+      return {
+        ...state,
+        requests: null,
+        error: true,
       };
     default:
       return state;

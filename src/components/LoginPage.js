@@ -1,20 +1,23 @@
+// @flow
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { login } from 'actions/authActions';
 import LoginForm from './LoginForm';
 import * as styles from './LoginPage.scss';
 
+type loginFormValues = {
+  login: string,
+  password: string,
+};
 
 class LoginPage extends Component {
-  constructor(props) {
-    super(props);
-    this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
-  }
+  props: {
+    loginHandler: (string, string) => void,
+  };
 
-  handleLoginSubmit(values) {
+  handleLoginSubmit = (values: loginFormValues) => {
     this.props.loginHandler(values.login, values.password);
-  }
+  };
 
   render() {
     return (
@@ -27,11 +30,7 @@ class LoginPage extends Component {
   }
 }
 
-LoginPage.propTypes = {
-  loginHandler: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Function) => ({
   loginHandler: (ulogin, upassword) => dispatch(login(ulogin, upassword)),
 });
 

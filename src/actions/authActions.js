@@ -15,6 +15,7 @@ export const login = (ulogin, upassword) => {
           return reject(msg);
         }
 
+        localStorage.setItem('user', JSON.stringify(user));
         return resolve({ user });
       }, 1000);
     }),

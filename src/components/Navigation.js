@@ -17,7 +17,7 @@ const Navigation = ({ isVisible }) => (
           className={styles.navLink}
           activeClassName={styles.navLinkActive}
           exact
-          to="/"
+          to="/now-playing"
         >
           Now playing
         </NavLink>

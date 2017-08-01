@@ -1,3 +1,7 @@
-webpack.config.js
-
+node_modules/
+coverage/
+dist/
+flow-typed/
 webpack/
+
+webpack.config.js

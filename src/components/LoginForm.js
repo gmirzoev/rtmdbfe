@@ -1,8 +1,8 @@
+// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 
-const validate = values => {
+const validate = (values: loginFormValues) => {
   const errors = {};
 
   if (!values.login) {
@@ -16,7 +16,7 @@ const validate = values => {
   return errors;
 };
 
-const RenderInputField = ({ input, type, placeholder, meta: { touched, error } }) => ( // eslint-disable-line
+const RenderInputField = ({ input, type, placeholder, meta: { touched, error } }) => (
   <div>
     <input
       {...input}
@@ -27,7 +27,7 @@ const RenderInputField = ({ input, type, placeholder, meta: { touched, error } }
   </div>
 );
 
-const LoginForm = ({ handleSubmit, _pristine, _reset, submitting }) => (
+const LoginForm = ({ handleSubmit, _pristine, _reset, submitting }: loginFormProps) => (
   <form
     onSubmit={handleSubmit}
   >
@@ -51,13 +51,6 @@ const LoginForm = ({ handleSubmit, _pristine, _reset, submitting }) => (
     </button>
   </form>
 );
-
-LoginForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  _pristine: PropTypes.bool,
-  _reset: PropTypes.func,
-  submitting: PropTypes.bool.isRequired,
-};
 
 export default reduxForm({
   form: 'login',

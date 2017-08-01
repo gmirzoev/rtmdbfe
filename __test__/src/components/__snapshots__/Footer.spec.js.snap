@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer component should render correctly 1`] = `
+<footer>
+  <span>
+    This product uses the TMDb API but is not endorsed or certified by TMDb.
+  </span>
+  <div />
+</footer>
+`;

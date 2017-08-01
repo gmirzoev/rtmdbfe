@@ -19,7 +19,7 @@ module.exports = ({projectRoot}) => {
     historyApiFallback: true,
   };
 
-  devConfig.devtool = 'eval';
+  devConfig.devtool = 'cheap-eval-source-map';
 
   return devConfig;
 };

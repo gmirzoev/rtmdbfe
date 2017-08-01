@@ -5,7 +5,7 @@ import {
 
 const initialState = {
   isFetching: false,
-  user: null,
+  user: localStorage.getItem('user'),
   error: false,
 };
 

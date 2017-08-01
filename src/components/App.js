@@ -1,36 +1,29 @@
+// @flow
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Switch, Route } from 'react-router-dom';
-import LoginPage from './LoginPage';
-import InnerPagesLayout from './InnerPagesLayout';
-import NowPlaying from './NowPlaying';
-import Popular from './Popular';
-import TopRated from './TopRated';
-import Upcoming from './Upcoming';
-import SearchPage from './SearchPage';
-import NoMatch from './NoMatch';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import asyncComponent from './AsyncComponent';
 
-const App = ({ isRegistered }) => {
-  if (!isRegistered) {
-    return <LoginPage />;
+type appProps = {
+  isRegistered: boolean,
+}
+
+// todo: why async components still unnamed despite using webpackChunkName?
+const AsyncLoginPage = asyncComponent(() => import(/* webpackChunkName: "login" */ './LoginPage'));
+const AsyncPrivatePages = asyncComponent(() => import(/* webpackChunkName: "private-pages" */ './PrivatePages'));
+
+const App = ({ isRegistered }: appProps) => {
+  if (!isRegistered && window.location.pathname !== '/login') {
+    return <Redirect to="/login" />;
+  } else if (isRegistered && window.location.pathname === '/login') {
+    return <Redirect to="/now-playing" />;
   }
   return (
-    <InnerPagesLayout>
-      <Switch>
-        <Route path="/" exact component={NowPlaying} />
-        <Route path="/popular" component={Popular} />
-        <Route path="/top" component={TopRated} />
-        <Route path="/upcoming" component={Upcoming} />
-        <Route path="/search" component={SearchPage} />
-        <Route component={NoMatch} />
-      </Switch>
-    </InnerPagesLayout>
+    <Switch>
+      <Route path="/login" exact component={AsyncLoginPage} />
+      <Route path="/" component={AsyncPrivatePages} />
+    </Switch>
   );
-};
-
-App.propTypes = {
-  isRegistered: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({

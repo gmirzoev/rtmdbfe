@@ -2,8 +2,9 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ManifestPlugin = require('webpack-manifest-plugin');
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 module.exports = ({projectRoot}) => ({
   context: path.join(projectRoot, 'src'),
@@ -25,7 +26,8 @@ module.exports = ({projectRoot}) => ({
   },
   output: {
     path: path.join(projectRoot, 'dist'),
-    filename: '[name].bundle.[chunkhash].js',
+    filename: '[name].[chunkhash:5].js',
+    chunkFilename: '[name].[chunkhash:5].js'
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
@@ -38,26 +40,33 @@ module.exports = ({projectRoot}) => ({
       minChunks: 4
     }),
     new ExtractTextPlugin({
-      filename: '[name].bundle.[hash].css',
+      filename: '[name].bundle.[contenthash:5].css',
       allChunks: true,
     }),
     new HtmlWebpackPlugin({
       template: './index.html',
       inject: 'body',
     }),
+    new PreloadWebpackPlugin(),
     new CopyWebpackPlugin([
       { from: './manifest.json' },
-      { from: './sw.js' },
       { from: 'assets/images/rtmdbfe*.png' }
     ]),
-    new ManifestPlugin({
-      fileName: 'asset-manifest.json',
-    }),
+    new SWPrecacheWebpackPlugin(
+      {
+        cacheId: 'rtmdbfe.v1',
+        dontCacheBustUrlsMatching: /\.\w{8}\./,
+        filename: 'sw.js',
+        minify: true,
+        navigateFallback: '/index.html',
+        staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+      }
+    ),
   ],
   resolve: {
     modules: [
-      path.resolve('./src'),
       path.resolve('./node_modules'),
+      path.resolve('./src'),
     ],
   },
   module: {
