@@ -1,59 +1,46 @@
+// @flow
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { debounce } from 'utils/utils';
 import { searchMovies } from 'actions/searchActions';
 import SearchBar from './SearchBar';
 import MoviesList from './MoviesList';
+import Loading from './Loading';
 
 class SearchPage extends Component {
-  constructor(props) {
-    super(props);
-    this.handleSearchInputChange = debounce(this.handleSearchInputChange.bind(this), 800);
-    this.state = {
-      lastSearchRequest: '',
-    };
-  }
+  state = {
+    lastSearchRequest: '',
+  };
 
-  handleSearchInputChange(values) {
-    const { search } = values;
+  props: searchPageProps;
 
+  handleSearchInputChange = ({ search }) => {
     if (this.state.lastSearchRequest === search) return;
-
     this.setState({ lastSearchRequest: search });
     this.props.searchMovies(search, 1);
-  }
+  };
+
+  handleSearchInputChangeDebounced = debounce(this.handleSearchInputChange, 800);
 
   render() {
-    const movies = this.props.movies;
+    const { isFetching, items } = this.props.movies;
+    if (isFetching) {
+      return <Loading />;
+    }
     return (
       <div>
-        <SearchBar onSubmit={this.handleSearchInputChange} />
-        <MoviesList movies={movies.items} />
+        <SearchBar onSubmit={this.handleSearchInputChangeDebounced} />
+        <MoviesList movies={items} />
       </div>
     );
   }
 }
 
-SearchPage.propTypes = {
-  movies: PropTypes.shape({
-    isFetching: PropTypes.bool.isRequired,
-    items: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      poster_path: PropTypes.string,
-      overview: PropTypes.string.isRequired,
-    })).isRequired,
-    pages: PropTypes.number.isRequired,
-  }).isRequired,
-  searchMovies: PropTypes.func.isRequired,
-};
-
 const mapStateToProps = state => ({
   movies: state.search,
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Function) => ({
   searchMovies: (query, page) => dispatch(searchMovies(query, page)),
 });
 

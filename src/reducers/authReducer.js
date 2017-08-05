@@ -1,6 +1,6 @@
 import {
   LOGIN_PENDING, LOGIN_FULFILLED, LOGIN_REJECTED,
-  LOGOUT_PENDING, LOGOUT_FULFILLED, LOGOUT_REJECTED,
+  LOGOUT_PENDING, LOGOUT_REJECTED,
 } from 'constants/actionTypes';
 
 const initialState = {
@@ -34,12 +34,6 @@ const authReducer = (state = initialState, action) => {
         ...state,
         isFetching: true,
         error: false,
-      };
-    case LOGOUT_FULFILLED:
-      return {
-        ...state,
-        isFetching: false,
-        user: null,
       };
     case LOGOUT_REJECTED:
       return {

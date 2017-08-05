@@ -5,17 +5,10 @@ import { login } from 'actions/authActions';
 import LoginForm from './LoginForm';
 import * as styles from './LoginPage.scss';
 
-type loginFormValues = {
-  login: string,
-  password: string,
-};
-
 class LoginPage extends Component {
-  props: {
-    loginHandler: (string, string) => void,
-  };
+  props: loginPageProps;
 
-  handleLoginSubmit = (values: loginFormValues) => {
+  handleLoginSubmit = (values: loginFormValues): void => {
     this.props.loginHandler(values.login, values.password);
   };
 
@@ -31,7 +24,7 @@ class LoginPage extends Component {
 }
 
 const mapDispatchToProps = (dispatch: Function) => ({
-  loginHandler: (ulogin, upassword) => dispatch(login(ulogin, upassword)),
+  loginHandler: (uLogin, uPassword) => dispatch(login(uLogin, uPassword)),
 });
 
 export default connect(undefined, mapDispatchToProps)(LoginPage);

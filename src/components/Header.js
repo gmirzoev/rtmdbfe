@@ -1,13 +1,10 @@
 // @flow
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { multiClass } from 'utils/utils';
 import * as styles from './Header.scss';
 
-type headerProps = {
-  handleNavigationClick: Function,
-}
-
-const Header = ({ handleNavigationClick }: headerProps) => (
+const Header = ({ onNavigationBtnClick }: headerProps) => (
   <header className={styles.header}>
     <NavLink
       className={styles.headerLogo}
@@ -19,8 +16,8 @@ const Header = ({ handleNavigationClick }: headerProps) => (
     <span
       role="button"
       tabIndex={0}
-      onClick={handleNavigationClick}
-      className={styles.headerNavigationBtn}
+      onClick={onNavigationBtnClick}
+      className={multiClass(styles.headerNavigationBtn, 'js-menu')}
       aria-label="Navigation"
     />
   </header>

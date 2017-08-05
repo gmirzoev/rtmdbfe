@@ -4,6 +4,7 @@
   margin-bottom: 20px;
 
   &-input-wrapper {
+    position: relative;
     flex: 1;
   }
 
@@ -30,6 +31,9 @@
     padding: 5px;
     background: #ff7d7d;
     color: #fff;
+    position: absolute;
+    width: 100%;
+    top: 100%;
   }
 }
 

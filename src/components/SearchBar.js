@@ -29,7 +29,7 @@ class RenderSearchField extends Component {
   searchInput: HTMLInputElement;
 
   render() {
-    const { input, type, meta: { touched, error } } = this.props;
+    const { input, type, meta: { active, touched, submitFailed, error } } = this.props;
     return (
       <div className={styles.searchBarInputWrapper}>
         <input
@@ -39,7 +39,7 @@ class RenderSearchField extends Component {
           type={type}
           ref={searchInput => { this.searchInput = searchInput; }}
         />
-        {touched && error && <span className={styles.searchBarError}>{error}</span>}
+        {active && touched && submitFailed && error && <span className={styles.searchBarError}>{error}</span>}
       </div>
     );
   }

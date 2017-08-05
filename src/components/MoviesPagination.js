@@ -1,9 +1,9 @@
+// @flow
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { multiClass } from 'utils/utils';
 import * as styles from './MoviesPagination.scss';
 
-export const buildPagesArr = (pagesCount, activePage, visiblePages) => {
+export const buildPagesArr = (pagesCount: number, activePage: number, visiblePages: number) => {
   let pagesArr;
 
   if (pagesCount <= visiblePages) {
@@ -35,7 +35,7 @@ export const buildPagesArr = (pagesCount, activePage, visiblePages) => {
 
 class MoviesPagination extends PureComponent {
   render() {
-    const { pagesCount, activePage, onPageChange } = this.props;
+    const { pagesCount, activePage, onPageChange }: moviesPaginationProps = this.props;
 
     if (pagesCount <= 0) {
       return null;
@@ -85,11 +85,5 @@ class MoviesPagination extends PureComponent {
     );
   }
 }
-
-MoviesPagination.propTypes = {
-  pagesCount: PropTypes.number.isRequired,
-  activePage: PropTypes.number.isRequired,
-  onPageChange: PropTypes.func.isRequired,
-};
 
 export default MoviesPagination;

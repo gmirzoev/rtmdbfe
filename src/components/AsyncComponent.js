@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import Loading from './Loading';
 
-export default function asyncComponent(getComponent: Function) {
+export default function asyncComponent(getComponent: Function, props?: Object) {
   return class AsyncComponent extends Component {
     state = {
       loaded: false,
@@ -21,7 +21,7 @@ export default function asyncComponent(getComponent: Function) {
 
     render() {
       if (this.state.loaded) {
-        return <this.component {...this.props} />;
+        return <this.component {...props} />;
       }
       return <Loading />;
     }

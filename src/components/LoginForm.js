@@ -27,7 +27,7 @@ const RenderInputField = ({ input, type, placeholder, meta: { touched, error } }
   </div>
 );
 
-const LoginForm = ({ handleSubmit, _pristine, _reset, submitting }: loginFormProps) => (
+const LoginForm = ({ handleSubmit, submitting }) => (
   <form
     onSubmit={handleSubmit}
   >

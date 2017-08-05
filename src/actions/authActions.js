@@ -1,9 +1,11 @@
-import { LOGIN } from 'constants/actionTypes';
+// @flow
+import { LOGIN, LOGOUT } from 'constants/actionTypes';
 import { toastr } from 'react-redux-toastr';
 
-export const login = (ulogin, upassword) => {
-  const user = JSON.parse(localStorage.getItem('users'))
-    .filter(u => u.login === ulogin.toLowerCase() && u.password === Number.parseInt(upassword, 10))[0];
+export const login = (uLogin: string, uPassword: string) => {
+  const users = localStorage.getItem('users') || '[]';
+  const user = JSON.parse(users)
+    .filter(u => u.login === uLogin.toLowerCase() && u.password === Number.parseInt(uPassword, 10))[0];
 
   return {
     type: LOGIN,
@@ -22,4 +24,10 @@ export const login = (ulogin, upassword) => {
   };
 };
 
-export const logout = () => {};
+export const logout = () => ({
+  type: LOGOUT,
+  payload: new Promise(resolve => {
+    localStorage.removeItem('user');
+    return resolve();
+  }),
+});

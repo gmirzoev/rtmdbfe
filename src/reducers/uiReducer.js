@@ -1,4 +1,4 @@
-import { TOGGLE_NAVIGATION_VISIBILITY } from 'constants/actionTypes';
+import { HIDE_NAVIGATION, TOGGLE_NAVIGATION } from 'constants/actionTypes';
 
 const initialState = {
   isNavigationVisible: false,
@@ -6,7 +6,12 @@ const initialState = {
 
 const uiReducer = (state = initialState, action) => {
   switch (action.type) {
-    case TOGGLE_NAVIGATION_VISIBILITY:
+    case HIDE_NAVIGATION:
+      return {
+        ...state,
+        isNavigationVisible: false,
+      };
+    case TOGGLE_NAVIGATION:
       return {
         ...state,
         isNavigationVisible: !state.isNavigationVisible,

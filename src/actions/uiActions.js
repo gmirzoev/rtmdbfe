@@ -1,5 +1,7 @@
-import { TOGGLE_NAVIGATION_VISIBILITY } from 'constants/actionTypes';
+import {
+  HIDE_NAVIGATION,
+  TOGGLE_NAVIGATION,
+} from 'constants/actionTypes';
 
-export const toggleNavigationVisibility = () => ({ type: TOGGLE_NAVIGATION_VISIBILITY });
-
-export default toggleNavigationVisibility;
+export const hideNavigation = () => ({ type: HIDE_NAVIGATION });
+export const toggleNavigation = () => ({ type: TOGGLE_NAVIGATION });

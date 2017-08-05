@@ -4,13 +4,9 @@ import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import asyncComponent from './AsyncComponent';
 
-type appProps = {
-  isRegistered: boolean,
-}
-
-// todo: why async components still unnamed despite using webpackChunkName?
-const AsyncLoginPage = asyncComponent(() => import(/* webpackChunkName: "login" */ './LoginPage'));
-const AsyncPrivatePages = asyncComponent(() => import(/* webpackChunkName: "private-pages" */ './PrivatePages'));
+// fixme: replace System.import() with import() as soon as chunk namings will work with it
+const AsyncLoginPage = asyncComponent(() => System.import(/* webpackChunkName: "login" */ './LoginPage'));
+const AsyncPrivatePages = asyncComponent(() => System.import(/* webpackChunkName: "private-pages" */ './PrivatePages'));
 
 const App = ({ isRegistered }: appProps) => {
   if (!isRegistered && window.location.pathname !== '/login') {

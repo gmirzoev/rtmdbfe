@@ -2,34 +2,34 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+
+const excludedVendorLibs = ['normalize.css'];
+const vendorLibs = Object.keys(require('../package.json').dependencies)
+  .filter(lib => !excludedVendorLibs.includes(lib));
 
 module.exports = ({projectRoot}) => ({
   context: path.join(projectRoot, 'src'),
   entry: {
-    vendor: [
-      'babel-polyfill',
-      'isomorphic-fetch',
-      'prop-types',
-      'react',
-      'react-dom',
-      'react-redux',
-      'react-router-dom',
-      'redux',
-      'redux-form',
-      'redux-promise-middleware',
-      'redux-thunk',
-    ],
+    vendor: vendorLibs,
     app: './index.js',
   },
   output: {
     path: path.join(projectRoot, 'dist'),
     filename: '[name].[chunkhash:5].js',
-    chunkFilename: '[name].[chunkhash:5].js'
+    chunkFilename: '[name].[chunkhash:5].js',
   },
   plugins: [
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      inject: 'body',
+    }),
+    new ExtractTextPlugin({
+      filename: '[name].[contenthash:5].css',
+      allChunks: true,
+    }),
+    new webpack.HashedModuleIdsPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: ['vendor', 'manifest'],
       minChunks: Infinity,
@@ -39,29 +39,19 @@ module.exports = ({projectRoot}) => ({
       children: true,
       minChunks: 4
     }),
-    new ExtractTextPlugin({
-      filename: '[name].bundle.[contenthash:5].css',
-      allChunks: true,
-    }),
-    new HtmlWebpackPlugin({
-      template: './index.html',
-      inject: 'body',
-    }),
-    new PreloadWebpackPlugin(),
     new CopyWebpackPlugin([
       { from: './manifest.json' },
       { from: 'assets/images/rtmdbfe*.png' }
     ]),
-    new SWPrecacheWebpackPlugin(
-      {
-        cacheId: 'rtmdbfe.v1',
-        dontCacheBustUrlsMatching: /\.\w{8}\./,
-        filename: 'sw.js',
-        minify: true,
-        navigateFallback: '/index.html',
-        staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
-      }
-    ),
+    // todo: replace with custom sw
+    new SWPrecacheWebpackPlugin({
+      cacheId: 'rtmdbfe.v2',
+      dontCacheBustUrlsMatching: /\.\w{8}\./,
+      filename: 'sw.js',
+      minify: true,
+      navigateFallback: '/index.html',
+      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+    }),
   ],
   resolve: {
     modules: [

@@ -1,3 +1,4 @@
+// @flow
 import { GET_APP_CONFIG } from 'constants/actionTypes';
 import { fetchJSON } from 'utils/utils';
 import { toastr } from 'react-redux-toastr';
