@@ -1,0 +1,44 @@
+.movie-card {
+  margin-bottom: 20px;
+
+  &-wrapper {
+    box-shadow: 0 0 4px 0 #999;
+    overflow: hidden;
+    background-color: var(--color-white);
+  }
+
+  &-image {
+    width: 100%;
+  }
+
+  &-info {
+    padding: 0 20px 20px;
+  }
+}
+
+@media (min-width: 481px) {
+  .movie-card {
+    &-image {
+      float: left;
+      width: 50%;
+    }
+
+    &-info {
+      float: left;
+      display: inline-block;
+      width: 50%;
+    }
+  }
+}
+
+@media (min-width: 981px) {
+  .movie-card {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+
+    &-wrapper {
+      margin: 0 10px;
+    }
+  }
+}

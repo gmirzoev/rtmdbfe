@@ -1,0 +1,50 @@
+.movies-pagination {
+  box-shadow: 0 0 4px 0 #999;
+  display: flex;
+
+  &-wrapper {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  &-item {
+    padding: 10px;
+    background-color: var(--color-white);
+    border: none;
+    cursor: pointer;
+    margin: 0 1px;
+    outline: none;
+    flex: 1;
+    font-weight: bold;
+
+    &:hover {
+      background-color: #eee;
+    }
+
+    &:disabled {
+      color: #d0d0d0;
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: var(--color-white);
+      }
+    }
+  }
+
+  &-item-active {
+    color: var(--color-white);
+    background-color: var(--bg-color-main);
+
+    &:hover {
+      background-color: var(--bg-color-main);
+    }
+  }
+}
+
+@media (min-width: 981px) {
+  .movies-pagination {
+    &-wrapper {
+      margin: 0 10px 20px 10px;
+    }
+  }
+}

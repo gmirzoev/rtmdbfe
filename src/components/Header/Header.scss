@@ -1,0 +1,42 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-color-main-dark);
+  padding: 10px 20px;
+}
+
+.header-logo {
+  color: var(--color-white);
+  font-size: 28px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.header-nav-btn {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  outline: none;
+}
+
+.header-nav-btn-item {
+  display: block;
+  height: 4px;
+  background: var(--color-white);
+  margin: 5px 0;
+  transition: all .15s ease;
+}
+
+.header-nav-btn-active {
+  .header-nav-btn-item-one {
+    transform: translate(0, 9px) rotate(45deg);
+  }
+  .header-nav-btn-item-two {
+    opacity: 0;
+  }
+  .header-nav-btn-item-three {
+    transform: translate(0, -9px) rotate(-45deg);
+  }
+}
+

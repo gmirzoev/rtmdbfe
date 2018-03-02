@@ -1,3 +1,14 @@
+:root {
+  --color-white: #fff;
+  --color-black: #000;
+  --color-danger: #ff4949;
+  --color-danger-highlighted: #ff0000;
+
+  --bg-color-main: #0d7575;
+  --bg-color-main-light: #129494;
+  --bg-color-main-dark: #185050;
+}
+
 * {
   box-sizing: border-box;
 }

@@ -1,6 +1,17 @@
-.idea/
-node_modules/
-dist/
-coverage/
+# dependencies
+/node_modules
 
+# development
+.idea/
+.vscode/
+
+# testing
+/coverage
+
+# production
+/build
+/dist
+
+# misc
+.DS_Store
 standConfig.js
