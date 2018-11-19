@@ -1,3 +1,1 @@
-const localStorage = require('mock-local-storage')
-
-window.localStorage = localStorage
+global.localStorage = require('mock-local-storage')

@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
@@ -31,7 +31,7 @@ module.exports = ({ env, projectRoot }) => {
       strictExportPresence: true,
       rules: [
         {
-          test: /\.(ts|tsx)$/,
+          test: /\.tsx?$/,
           enforce: 'pre',
           include: path.join(projectRoot, 'src'),
           loader: 'tslint-loader',
@@ -48,15 +48,15 @@ module.exports = ({ env, projectRoot }) => {
         {
           oneOf: [
             {
-              test: /\.(ts|tsx)$/,
+              test: /\.tsx?$/,
               include: path.join(projectRoot, 'src'),
-              loader: 'ts-loader'
+              loader: 'awesome-typescript-loader'
             },
             { // global level styles
               test: /\.scss$/,
               include: path.join(projectRoot, 'src/styles'),
               use: [
-                'style-loader',
+                MiniCssExtractPlugin.loader,
                 {
                   loader: 'css-loader',
                   options: { url: true }
@@ -82,7 +82,7 @@ module.exports = ({ env, projectRoot }) => {
               include: path.join(projectRoot, 'src'),
               exclude: path.join(projectRoot, 'src/styles'),
               use: [
-                'style-loader',
+                MiniCssExtractPlugin.loader,
                 {
                   loader: 'css-loader',
                   options: {
@@ -122,6 +122,18 @@ module.exports = ({ env, projectRoot }) => {
         }
       ]
     },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'styles',
+            test: /\.css$/,
+            chunks: 'all',
+            enforce: true
+          }
+        }
+      }
+    },
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
@@ -143,9 +155,8 @@ module.exports = ({ env, projectRoot }) => {
         'process.env.NODE_ENV': '"production"',
         'window.__STAND_CONFIG__': JSON.stringify(require('../standConfig'))
       }),
-      new ExtractTextPlugin({
-        filename: '[name].[contenthash:5].css',
-        allChunks: true
+      new MiniCssExtractPlugin({
+        filename: "[name].[contenthash:5].css"
       })
     ],
     node: {

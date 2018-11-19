@@ -31,7 +31,7 @@ module.exports = ({ env, projectRoot }) => {
       strictExportPresence: true,
       rules: [
         {
-          test: /\.(ts|tsx)$/,
+          test: /\.tsx?$/,
           enforce: 'pre',
           include: path.join(projectRoot, 'src'),
           loader: 'tslint-loader',
@@ -56,7 +56,7 @@ module.exports = ({ env, projectRoot }) => {
                   '!src/**/*.spec.{ts,tsx}'
                 ]
               },
-              loader: 'ts-loader'
+              loader: 'awesome-typescript-loader'
             },
             { // global level styles
               test: /\.scss$/,

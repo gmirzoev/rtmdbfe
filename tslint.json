@@ -63,7 +63,6 @@
         "no-switch-case-fall-through": true,
         "no-trailing-whitespace": false,
         "no-unused-expression": true,
-        "no-unused-variable": [ true, { "ignore-pattern": "^_" } ],
         "no-use-before-declare": true,
         "one-line": [
           true,

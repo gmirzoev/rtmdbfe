@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { connect, Dispatch } from 'react-redux'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import { getTmdbConfig } from 'actions/initActions'
 import { toggleNavigation } from 'actions/uiActions'
 import { hideNavigation } from 'actions/uiActions'
@@ -100,7 +101,7 @@ const mapStateToProps = (state: IAppState) => ({
   isNavigationVisible: state.ui.isNavigationVisible
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<object>) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   handleHideNavigation: () => { dispatch(hideNavigation()) },
   handleToggleNavigation: () => { dispatch(toggleNavigation()) },
   handleLogout: () => { dispatch(logout()) },

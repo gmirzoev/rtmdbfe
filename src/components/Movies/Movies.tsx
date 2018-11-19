@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { connect, Dispatch } from 'react-redux'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
 import { getMovies } from 'actions/moviesActions'
 import { IAppState } from 'reducers'
@@ -61,7 +62,7 @@ const mapStateToProps = (state: IAppState) => ({
   movies: state.movies.items
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   getMovies: (type: string, page: number) => { dispatch(getMovies(type, page)) }
 })
 

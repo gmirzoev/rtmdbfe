@@ -1,5 +1,5 @@
 import { combineReducers, AnyAction } from 'redux'
-import reduxFormReducer, { FormState } from 'redux-form/lib/reducer'
+import reduxFormReducer, { FormStateMap } from 'redux-form/lib/reducer'
 import { reducer as toastrReducer, ToastrState } from 'react-redux-toastr'
 import { LOGOUT_FULFILLED } from 'constants/actionTypes'
 import init, { IInitState } from './init'
@@ -14,11 +14,11 @@ export interface IAppState {
   readonly ui: IUiState,
   readonly movies: IMoviesState,
   readonly search: ISearchState,
-  readonly form: FormState,
+  readonly form: FormStateMap,
   readonly toastr: ToastrState
 }
 
-const appReducer = combineReducers<object|undefined>({
+const appReducer = combineReducers<IAppState>({
   init,
   auth,
   ui,

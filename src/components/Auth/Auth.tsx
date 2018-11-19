@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { connect, Dispatch } from 'react-redux'
-import { IAppState } from 'reducers'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import { login } from 'actions/authActions'
 import Footer from 'components/Footer'
 import AuthForm from './AuthForm'
@@ -48,7 +48,7 @@ export class Auth extends React.Component<IAuthProps, IAuthState> {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   authHandler: (name: string, password: string) => { dispatch(login(name, password)) }
 })
 

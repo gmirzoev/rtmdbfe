@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { connect, Dispatch } from 'react-redux'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import { Utils } from 'utils'
 import { searchMovies } from 'actions/searchActions'
 import { IAppState } from 'reducers'
@@ -55,7 +56,7 @@ const mapStateToProps = (state: IAppState) => ({
   movies: state.search.items
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<IAppState>) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   searchMovies: (query: string, page: number) => { dispatch(searchMovies(query, page)) }
 })
 

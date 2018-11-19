@@ -1,11 +1,13 @@
 import * as React from 'react'
-import { Provider, Store } from 'react-redux'
+import { Store } from 'redux'
+import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import ReduxToastr from 'react-redux-toastr'
+import { IAppState } from 'reducers'
 import App from 'components/App'
 
 interface IRootProps {
-  store: Store<object|undefined>
+  store: Store<IAppState>
 }
 
 export default class Root extends React.Component<IRootProps> {
