@@ -12,21 +12,21 @@ import Main from 'components/Main'
 import Footer from 'components/Footer'
 import LoadingIndicator from 'components/LoadingIndicator'
 import AppInitError from 'components/AppInitError'
-const styles = require('./PrivatePagesLayout.scss')
+import * as styles from './PrivatePagesLayout.scss'
 
 export interface INavLink {
-  title: string
-  url: string
+  title: string;
+  url: string;
 }
 
 export interface IPrivatePagesLayoutProps {
-  isAppInitialized: boolean
-  initializationError: boolean
-  isNavigationVisible: boolean
-  handleHideNavigation(): void
-  handleToggleNavigation(): void
-  handleLogout(): void
-  getTmdbConfig(): void
+  isAppInitialized: boolean;
+  initializationError: boolean;
+  isNavigationVisible: boolean;
+  handleHideNavigation(): void;
+  handleToggleNavigation(): void;
+  handleLogout(): void;
+  getTmdbConfig(): void;
 }
 
 class PrivatePagesLayout extends React.Component<IPrivatePagesLayoutProps> {

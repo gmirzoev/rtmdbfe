@@ -1,16 +1,16 @@
 import { AnyAction } from 'redux'
 import {
-  GET_MOVIES_PENDING,
   GET_MOVIES_FULFILLED,
+  GET_MOVIES_PENDING,
   GET_MOVIES_REJECTED
 } from 'constants/actionTypes'
 import { IMovie } from 'components/MoviesList'
 
 export interface IMoviesState {
-  readonly isFetching: boolean
-  readonly items: ReadonlyArray<IMovie>
-  readonly pages: number
-  readonly error: boolean
+  readonly isFetching: boolean;
+  readonly items: ReadonlyArray<IMovie>;
+  readonly pages: number;
+  readonly error: boolean;
 }
 
 export const initialState = {
@@ -20,7 +20,8 @@ export const initialState = {
   error: false
 }
 
-export default function moviesReducer(state: IMoviesState = initialState, action: AnyAction): IMoviesState {
+export default function moviesReducer(state: IMoviesState = initialState,
+                                      action: AnyAction): IMoviesState {
   switch (action.type) {
     case GET_MOVIES_PENDING:
       return {

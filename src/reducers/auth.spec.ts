@@ -1,13 +1,7 @@
 import * as deepFreeze from 'deep-freeze'
-import {
-  LOGIN_PENDING,
-  LOGIN_FULFILLED,
-  LOGIN_REJECTED,
-  LOGOUT_PENDING,
-  LOGOUT_FULFILLED,
-  LOGOUT_REJECTED
-} from 'constants/actionTypes'
-import reducer, { initialState, IAuthState } from 'reducers/auth'
+import { Auth } from 'constants/actionTypes'
+import { fulfilled, pending, rejected } from './utils'
+import reducer, { initialState, IAuthState } from './auth'
 
 // TODO: better previousState for tests
 describe('Auth reducer', () => {
@@ -23,7 +17,7 @@ describe('Auth reducer', () => {
       isFetching: false,
       error: true
     })
-    const sampleAction = { type: LOGIN_PENDING }
+    const sampleAction = { type: pending(Auth.LOGIN) }
     const expectedResult: IAuthState = {
       ...previousState,
       isFetching: true,
@@ -40,7 +34,7 @@ describe('Auth reducer', () => {
     })
     const mockUser = JSON.stringify({ name: 'John', role: 'user', login: 'john', password: 123 })
     const sampleAction = {
-      type: LOGIN_FULFILLED,
+      type: fulfilled(Auth.LOGIN),
       payload: { user: mockUser }
     }
     const expectedResult: IAuthState = {
@@ -57,7 +51,7 @@ describe('Auth reducer', () => {
       isFetching: true,
       error: false
     })
-    const sampleAction = { type: LOGIN_REJECTED }
+    const sampleAction = { type: rejected(Auth.LOGIN) }
     const expectedResult: IAuthState = {
       ...previousState,
       isFetching: false,
@@ -72,7 +66,7 @@ describe('Auth reducer', () => {
       isFetching: false,
       error: true
     })
-    const sampleAction = { type: LOGOUT_PENDING }
+    const sampleAction = { type: pending(Auth.LOGOUT) }
     const expectedResult: IAuthState = {
       ...previousState,
       isFetching: true,
@@ -87,7 +81,7 @@ describe('Auth reducer', () => {
       isFetching: true,
       error: false
     })
-    const sampleAction = { type: LOGOUT_FULFILLED }
+    const sampleAction = { type: fulfilled(Auth.LOGOUT) }
     expect(reducer(previousState, sampleAction)).toEqual(initialState)
   })
 
@@ -97,7 +91,7 @@ describe('Auth reducer', () => {
       isFetching: true,
       error: false
     })
-    const sampleAction = { type: LOGOUT_REJECTED }
+    const sampleAction = { type: rejected(Auth.LOGOUT) }
     const expectedResult: IAuthState = {
       ...previousState,
       isFetching: false,

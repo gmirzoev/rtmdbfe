@@ -3,14 +3,14 @@ import { Utils } from 'utils'
 import MovieCard from 'components/MovieCard'
 
 export interface IMovie {
-  id: string
-  title: string
-  overview: string
-  poster_path: string
+  id: string;
+  title: string;
+  overview: string;
+  poster_path: string;
 }
 
 interface IMoviesListProps {
-  movies: ReadonlyArray<IMovie>
+  movies: ReadonlyArray<IMovie>;
 }
 
 export default class MoviesList extends React.Component<IMoviesListProps> {
@@ -19,7 +19,9 @@ export default class MoviesList extends React.Component<IMoviesListProps> {
     return (
       <div>
         {this.props.movies.map(movie => {
-          const fullPosterPath = movie.poster_path ? `${BASE_URL}${poster_sizes[3]}${movie.poster_path}` : ''
+          const fullPosterPath = movie.poster_path
+            ? `${BASE_URL}${poster_sizes[3]}${movie.poster_path}`
+            : ''
           return (
             <MovieCard
               key={movie.id}

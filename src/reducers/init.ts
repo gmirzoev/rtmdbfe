@@ -1,13 +1,10 @@
 import { AnyAction } from 'redux'
-import {
-  GET_TMDB_CONFIG_PENDING,
-  GET_TMDB_CONFIG_FULFILLED,
-  GET_TMDB_CONFIG_REJECTED
-} from 'constants/actionTypes'
+import { Generic } from 'constants/actionTypes'
+import { fulfilled, pending, rejected } from './utils'
 
 export interface IInitState {
-  readonly isInitialized: boolean
-  readonly error: boolean
+  readonly isInitialized: boolean;
+  readonly error: boolean;
 }
 
 export const initialState = {
@@ -15,16 +12,17 @@ export const initialState = {
   error: false
 }
 
-export default function initReducer(state: IInitState = initialState, action: AnyAction): IInitState {
+export default function initReducer(state: IInitState = initialState,
+                                    action: AnyAction): IInitState {
   switch (action.type) {
-    case GET_TMDB_CONFIG_PENDING:
+    case pending(Generic.FETCH_TMDB_CONF):
       return { ...initialState }
-    case GET_TMDB_CONFIG_FULFILLED:
+    case fulfilled(Generic.FETCH_TMDB_CONF):
       return {
         ...state,
         isInitialized: true
       }
-    case GET_TMDB_CONFIG_REJECTED:
+    case rejected(Generic.FETCH_TMDB_CONF):
       return {
         ...state,
         isInitialized: true,

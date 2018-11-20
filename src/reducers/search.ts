@@ -1,16 +1,16 @@
 import { AnyAction } from 'redux'
 import {
-  SEARCH_MOVIE_PENDING,
   SEARCH_MOVIE_FULFILLED,
+  SEARCH_MOVIE_PENDING,
   SEARCH_MOVIE_REJECTED,
 } from 'constants/actionTypes'
 import { IMovie } from 'components/MoviesList'
 
 export interface ISearchState {
-  readonly isFetching: boolean
-  readonly items: IMovie[]
-  readonly pages: number
-  readonly error: boolean
+  readonly isFetching: boolean;
+  readonly items: IMovie[];
+  readonly pages: number;
+  readonly error: boolean;
 }
 
 export const initialState = {
@@ -20,7 +20,8 @@ export const initialState = {
   error: false
 }
 
-export default function searchReducer(state: ISearchState = initialState, action: AnyAction): ISearchState {
+export default function searchReducer(state: ISearchState = initialState,
+                                      action: AnyAction): ISearchState {
   switch (action.type) {
     case SEARCH_MOVIE_PENDING:
       return {

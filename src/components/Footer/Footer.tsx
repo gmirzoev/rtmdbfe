@@ -1,5 +1,5 @@
 import * as React from 'react'
-const styles = require('./Footer.scss')
+import * as styles from './Footer.scss'
 
 export default class Footer extends React.Component {
   render() {

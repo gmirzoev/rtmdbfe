@@ -1,10 +1,10 @@
 import * as React from 'react'
 import reduxForm, { InjectedFormProps } from 'redux-form/lib/reduxForm'
 import Field, { WrappedFieldProps } from 'redux-form/lib/Field'
-const styles = require('./SearchForm.scss')
+import * as styles from './SearchForm.scss'
 
 interface ISearchForm {
-  search: string
+  search: string;
 }
 
 const validate = (values: ISearchForm) => {
@@ -16,7 +16,7 @@ const validate = (values: ISearchForm) => {
 }
 
 interface ISearchFieldProps {
-  type: string
+  type: string;
 }
 
 class RenderSearchField extends React.Component<ISearchFieldProps & WrappedFieldProps> {

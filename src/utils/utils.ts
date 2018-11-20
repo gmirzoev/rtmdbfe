@@ -11,7 +11,8 @@ export default class Utils {
   }
 
   /* Error handling helper function */
-  public static handleError(errMsg: string = 'Unknown error occured', errTitle: string = ''): never {
+  public static handleError(errMsg: string = 'Unknown error occured',
+                            errTitle: string = ''): never {
     toastr.error(errTitle, errMsg)
     throw new Error(errMsg)
   }

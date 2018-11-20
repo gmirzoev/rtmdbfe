@@ -9,13 +9,13 @@ import LoadingIndicator from 'components/LoadingIndicator'
 import SearchForm from './SearchForm'
 
 interface ISearchProps {
-  isFetching: boolean
-  movies: IMovie[]
-  searchMovies(query: string, page: number): void
+  isFetching: boolean;
+  movies: IMovie[];
+  searchMovies(query: string, page: number): void;
 }
 
 interface ISearchState {
-  lastSearchRequest: string
+  lastSearchRequest: string;
 }
 
 class Search extends React.Component<ISearchProps, ISearchState> {

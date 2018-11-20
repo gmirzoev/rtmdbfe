@@ -1,5 +1,5 @@
 import * as React from 'react'
-const styles = require('./AppInitError.scss')
+import * as styles from './AppInitError.scss'
 
 export default class AppInitError extends React.Component {
   render() {

@@ -1,11 +1,11 @@
-import { GET_TMDB_CONFIG } from 'constants/actionTypes'
+import { Generic } from 'constants/actionTypes'
 import { Utils } from 'utils'
 
 export function getTmdbConfig() {
   const { API_HOST, API_VERSION, API_KEY } = Utils.getConfig().stand
   const requestUrl = `${API_HOST}/${API_VERSION}/configuration?api_key=${API_KEY}`
   return {
-    type: GET_TMDB_CONFIG,
+    type: Generic.FETCH_TMDB_CONF,
     payload: async () => {
       try {
         const tmdbCfgResponse = await fetch(requestUrl)

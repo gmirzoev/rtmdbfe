@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import PrivatePagesLayout from 'components/PrivatePagesLayout'
 import Movies from 'components/Movies'
 import Search from 'components/Search'

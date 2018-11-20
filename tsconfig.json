@@ -23,7 +23,9 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "experimentalDecorators": true
   },
   "include": [ "src/**/*" ]
 }

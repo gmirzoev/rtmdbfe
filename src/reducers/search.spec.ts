@@ -1,7 +1,7 @@
 import * as deepFreeze from 'deep-freeze'
 import {
-  SEARCH_MOVIE_PENDING,
   SEARCH_MOVIE_FULFILLED,
+  SEARCH_MOVIE_PENDING,
   SEARCH_MOVIE_REJECTED,
 } from 'constants/actionTypes'
 import reducer, { initialState, ISearchState } from './search'

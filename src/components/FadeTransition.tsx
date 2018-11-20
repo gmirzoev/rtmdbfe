@@ -2,9 +2,9 @@ import * as React from 'react'
 import Transition from 'react-transition-group/Transition'
 
 interface IFadeTransitionProps {
-  children: JSX.Element
-  in?: boolean
-  duration?: number
+  children: JSX.Element;
+  in?: boolean;
+  duration?: number;
 }
 
 export default class FadeTransition extends React.Component<IFadeTransitionProps> {

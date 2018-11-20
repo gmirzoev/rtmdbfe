@@ -1,5 +1,5 @@
 import * as React from 'react'
-const styles = require('./NoMatch.scss')
+import * as styles from './NoMatch.scss'
 
 export default class NoMatch extends React.Component {
   render () {

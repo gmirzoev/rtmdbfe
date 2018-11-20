@@ -1,9 +1,6 @@
 import * as deepFreeze from 'deep-freeze'
-import {
-  GET_TMDB_CONFIG_PENDING,
-  GET_TMDB_CONFIG_FULFILLED,
-  GET_TMDB_CONFIG_REJECTED
-} from 'constants/actionTypes'
+import { Generic } from 'constants/actionTypes'
+import { fulfilled, pending, rejected } from './utils'
 import reducer, { initialState, IInitState } from './init'
 
 describe('Init reducer', () => {
@@ -18,7 +15,7 @@ describe('Init reducer', () => {
       isInitialized: true,
       error: false
     })
-    const sampleAction = { type: GET_TMDB_CONFIG_PENDING }
+    const sampleAction = { type: pending(Generic.FETCH_TMDB_CONF) }
     expect(reducer(previousState, sampleAction)).toEqual(initialState)
   })
 
@@ -27,7 +24,7 @@ describe('Init reducer', () => {
       isInitialized: false,
       error: false
     })
-    const sampleAction = { type: GET_TMDB_CONFIG_FULFILLED }
+    const sampleAction = { type: fulfilled(Generic.FETCH_TMDB_CONF) }
     const expectedResult: IInitState = {
       ...previousState,
       isInitialized: true
@@ -40,7 +37,7 @@ describe('Init reducer', () => {
       isInitialized: false,
       error: false
     })
-    const sampleAction = { type: GET_TMDB_CONFIG_REJECTED }
+    const sampleAction = { type: rejected(Generic.FETCH_TMDB_CONF) }
     const expectedResult: IInitState = {
       ...previousState,
       isInitialized: true,

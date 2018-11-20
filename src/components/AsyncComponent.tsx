@@ -1,28 +1,24 @@
 import * as React from 'react'
 import LoadingIndicator from './LoadingIndicator'
 
-interface IAsyncComponentProps {
-  [key: string]: any // tslint:disable-line
-}
-
 interface IAsyncComponentState {
-  loaded: boolean
+  loaded: boolean;
 }
 
-export default function asyncComponent(getComponent: Function) {
-  return class AsyncComponent extends React.Component<IAsyncComponentProps, IAsyncComponentState> {
-    static component: React.ComponentClass|null = null
+export default function asyncComponent<P = {}>(getComponent: Function) {
+  return class AsyncComponent extends React.Component<P, IAsyncComponentState> {
+    static component: React.ComponentClass<P> | null = null
 
     state = {
       loaded: false
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
       if (this.state.loaded) {
         return
       }
       getComponent()
-        .then((module: { default: React.ComponentClass }) => {
+        .then((module: { default: React.ComponentClass<P> }) => {
           AsyncComponent.component = module.default
           this.setState({ loaded: true })
         })

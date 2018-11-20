@@ -1,8 +1,10 @@
 const path = require('path')
 const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const WorkboxPlugin = require('workbox-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = ({ env, projectRoot }) => {
@@ -157,6 +159,20 @@ module.exports = ({ env, projectRoot }) => {
       }),
       new MiniCssExtractPlugin({
         filename: "[name].[contenthash:5].css"
+      }),
+      new CopyWebpackPlugin([
+        {
+          from: path.join(projectRoot, 'src/manifest.json'),
+          to: '.'
+        },
+        {
+          from: path.join(projectRoot, 'src/assets/manifest'),
+          to: './assets/images'
+        }
+      ]),
+      new WorkboxPlugin.GenerateSW({
+        clientsClaim: true,
+        skipWaiting: true
       })
     ],
     node: {

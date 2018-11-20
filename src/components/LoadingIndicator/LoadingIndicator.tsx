@@ -1,5 +1,5 @@
 import * as React from 'react'
-const styles = require('./LoadingIndicator.scss')
+import * as styles from './LoadingIndicator.scss'
 
 export default class LoadingIndicator extends React.Component {
   render() {

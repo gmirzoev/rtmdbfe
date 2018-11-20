@@ -2,6 +2,8 @@ const path = require('path')
 const webpack = require('webpack')
 const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const WorkboxPlugin = require('workbox-webpack-plugin')
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
@@ -140,7 +142,21 @@ module.exports = ({ env, projectRoot }) => {
         'window.__STAND_CONFIG__': JSON.stringify(require('../standConfig'))
       }),
       new webpack.HotModuleReplacementPlugin(),
-      new CaseSensitivePathsPlugin()
+      new CaseSensitivePathsPlugin(),
+      new CopyWebpackPlugin([
+        {
+          from: path.join(projectRoot, 'src/manifest.json'),
+          to: '.'
+        },
+        {
+          from: path.join(projectRoot, 'src/assets/manifest'),
+          to: './assets/images'
+        }
+      ]),
+      new WorkboxPlugin.GenerateSW({
+        clientsClaim: true,
+        skipWaiting: true
+      })
     ],
     devServer: {
       compress: true,

@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as classNames from 'classnames'
 import reduxForm, { InjectedFormProps } from 'redux-form/lib/reduxForm'
 import Field, { WrappedFieldProps } from 'redux-form/lib/Field'
-const styles = require('./AuthForm.scss')
+import * as styles from './AuthForm.scss'
 
 const validate = (values: ICredentials) => {
   const errors: Partial<ICredentials> = {}
@@ -16,8 +16,8 @@ const validate = (values: ICredentials) => {
 }
 
 interface IAuthInputFieldProps {
-  type: string,
-  placeholder: string
+  type: string;
+  placeholder: string;
 }
 
 class RenderInputField extends React.Component<IAuthInputFieldProps & WrappedFieldProps> {
@@ -33,7 +33,11 @@ class RenderInputField extends React.Component<IAuthInputFieldProps & WrappedFie
           placeholder={placeholder}
           type={type}
         />
-        {meta.touched && meta.error && <span className={styles.authFormFieldErrorMsg}>{meta.error}</span>}
+        {meta.touched && meta.error && (
+          <span className={styles.authFormFieldErrorMsg}>
+            {meta.error}
+          </span>
+        )}
       </div>
     )
   }

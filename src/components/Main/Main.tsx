@@ -1,5 +1,5 @@
 import * as React from 'react'
-const styles = require('./Main.scss')
+import * as styles from './Main.scss'
 
 export default class Main extends React.Component {
   render () {

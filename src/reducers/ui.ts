@@ -2,7 +2,7 @@ import { AnyAction } from 'redux'
 import { HIDE_NAVIGATION, TOGGLE_NAVIGATION } from 'constants/actionTypes'
 
 export interface IUiState {
-  readonly isNavigationVisible: boolean
+  readonly isNavigationVisible: boolean;
 }
 
 export const initialState = {

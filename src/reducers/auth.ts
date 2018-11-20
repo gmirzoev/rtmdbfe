@@ -1,17 +1,11 @@
 import { AnyAction } from 'redux'
-import {
-  LOGIN_PENDING,
-  LOGIN_FULFILLED,
-  LOGIN_REJECTED,
-  LOGOUT_PENDING,
-  LOGOUT_REJECTED,
-  LOGOUT_FULFILLED
-} from 'constants/actionTypes'
+import { Auth } from 'constants/actionTypes'
+import { fulfilled, pending, rejected } from './utils'
 
 export interface IAuthState {
-  readonly isFetching: boolean,
-  readonly user: string | null,
-  readonly error: boolean
+  readonly isFetching: boolean;
+  readonly user: string | null;
+  readonly error: boolean;
 }
 
 export const initialState = {
@@ -20,37 +14,38 @@ export const initialState = {
   error: false
 }
 
-export default function authReducer(state: IAuthState = initialState, action: AnyAction): IAuthState {
+export default function authReducer(state: IAuthState = initialState,
+                                    action: AnyAction): IAuthState {
   switch (action.type) {
-    case LOGIN_PENDING:
+    case pending(Auth.LOGIN):
       return {
         ...state,
         isFetching: true,
         error: false
       }
-    case LOGIN_FULFILLED:
+    case fulfilled(Auth.LOGIN):
       return {
         ...state,
         isFetching: false,
         user: action.payload.user
       }
-    case LOGIN_REJECTED:
+    case rejected(Auth.LOGIN):
       return {
         ...state,
         isFetching: false,
         error: true
       }
-    case LOGOUT_PENDING:
+    case pending(Auth.LOGOUT):
       return {
         ...state,
         isFetching: true,
         error: false
       }
-    case LOGOUT_FULFILLED:
+    case fulfilled(Auth.LOGOUT):
       return {
         ...initialState
       }
-    case LOGOUT_REJECTED:
+    case rejected(Auth.LOGOUT):
       return {
         ...state,
         isFetching: false,

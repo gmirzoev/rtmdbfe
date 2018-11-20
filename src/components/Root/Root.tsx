@@ -7,7 +7,7 @@ import { IAppState } from 'reducers'
 import App from 'components/App'
 
 interface IRootProps {
-  store: Store<IAppState>
+  store: Store<IAppState>;
 }
 
 export default class Root extends React.Component<IRootProps> {

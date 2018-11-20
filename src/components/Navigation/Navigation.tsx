@@ -2,12 +2,12 @@ import * as React from 'react'
 import * as classNames from 'classnames'
 import { NavLink } from 'react-router-dom'
 import { INavLink } from 'components/PrivatePagesLayout'
-const styles = require('./Navigation.scss')
+import * as styles from './Navigation.scss'
 
 interface INavigationProps {
-  isVisible: boolean
-  links: INavLink[]
-  onLogout(): void
+  isVisible: boolean;
+  links: INavLink[];
+  onLogout(): void;
 }
 
 export default class Navigation extends React.Component<INavigationProps> {

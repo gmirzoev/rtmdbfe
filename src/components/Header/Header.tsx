@@ -1,11 +1,11 @@
 import * as React from 'react'
 import * as classNames from 'classnames'
 import { NavLink } from 'react-router-dom'
-const styles = require('./Header.scss')
+import * as styles from './Header.scss'
 
 interface IHeaderProps {
-  isNavigationVisible: boolean
-  onNavigationBtnClick(): void
+  isNavigationVisible: boolean;
+  onNavigationBtnClick(): void;
 }
 
 export default class Header extends React.Component<IHeaderProps> {

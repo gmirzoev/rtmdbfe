@@ -1,10 +1,10 @@
 import * as React from 'react'
-const styles = require('./MovieCard.scss')
+import * as styles from './MovieCard.scss'
 
 interface IMovieCard {
-  title: string
-  poster: string
-  overview: string
+  title: string;
+  poster: string;
+  overview: string;
 }
 
 export default class MovieCard extends React.Component<IMovieCard> {

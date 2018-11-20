@@ -7,7 +7,7 @@ import { IAppState } from 'reducers'
 import MoviesPagination from 'components/MoviesPagination'
 import MoviesList, { IMovie } from 'components/MoviesList'
 import LoadingIndicator from 'components/LoadingIndicator'
-const styles = require('./Movies.scss')
+import * as styles from './Movies.scss'
 
 type IMoviesProps = {
   isFetching: boolean
@@ -27,11 +27,11 @@ export class Movies extends React.Component<IMoviesProps> {
     this.props.getMovies(this.props.match.params.type, page)
   }
 
-  componentWillReceiveProps (nextProps: IMoviesProps) {
-    if (this.props.match.params.type !== nextProps.match.params.type ||
-        this.props.match.params.page !== nextProps.match.params.page) {
-      const page = parseInt(nextProps.match.params.page, 10) || 1
-      this.props.getMovies(nextProps.match.params.type, page)
+  componentDidUpdate (prevProps: IMoviesProps) {
+    if (this.props.match.params.type !== prevProps.match.params.type ||
+        this.props.match.params.page !== prevProps.match.params.page) {
+      const page = parseInt(this.props.match.params.page, 10) || 1
+      this.props.getMovies(this.props.match.params.type, page)
     }
   }
 

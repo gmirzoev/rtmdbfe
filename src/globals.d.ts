@@ -8,33 +8,38 @@ declare module 'deep-freeze' {
   export = deepFreeze
 }
 
+declare module '*.scss' {
+  const classNames: { [className: string]: string }
+  export = classNames
+}
+
 interface Window {
-  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: any
-  __STAND_CONFIG__: IStandConfig
-  __TMDB_CONFIG__: ITmdbConfig
+  __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: any;
+  __STAND_CONFIG__: IStandConfig;
+  __TMDB_CONFIG__: ITmdbConfig;
 }
 
 interface IStandConfig {
-  API_HOST: string
-  API_VERSION: string
-  API_KEY: string
+  API_HOST: string;
+  API_VERSION: string;
+  API_KEY: string;
 }
 
 interface ITmdbConfig {
-  [key: string]: any
+  [key: string]: any;
 }
 
 interface ICredentials {
-  login: string
-  password: string
+  login: string;
+  password: string;
 }
 
 interface IUser {
-  login: string
-  password: string
+  login: string;
+  password: string;
 }
 
 interface IAppConfig {
-  stand: IStandConfig
-  tmdb: ITmdbConfig
+  stand: IStandConfig;
+  tmdb: ITmdbConfig;
 }

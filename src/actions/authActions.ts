@@ -1,9 +1,9 @@
-import { LOGIN, LOGOUT } from 'constants/actionTypes'
+import { Auth } from 'constants/actionTypes'
 import { Utils } from 'utils'
 
 export function login(uLogin: string, uPassword: string) {
   return {
-    type: LOGIN,
+    type: Auth.LOGIN,
     payload: async () => {
       await Utils.wait(500) // add some delay
       const users: IUser[] = JSON.parse(localStorage.getItem('users') || '[]')
@@ -19,7 +19,7 @@ export function login(uLogin: string, uPassword: string) {
 
 export function logout() {
   return {
-    type: LOGOUT,
+    type: Auth.LOGOUT,
     payload: async () => {
       await Utils.wait(200)
       sessionStorage.removeItem('user')

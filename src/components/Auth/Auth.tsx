@@ -1,17 +1,18 @@
 import * as React from 'react'
-import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { login } from 'actions/authActions'
 import Footer from 'components/Footer'
 import AuthForm from './AuthForm'
-const styles = require('./Auth.scss')
+import * as styles from './Auth.scss'
 
-interface IAuthProps {
-  authHandler(name: string, password: string): void
+interface IAuthDispatchProps {
+  login(name: string, password: string): void;
 }
 
+type IAuthProps = IAuthDispatchProps
+
 interface IAuthState {
-  users: IUser[]
+  users: IUser[];
 }
 
 export class Auth extends React.Component<IAuthProps, IAuthState> {
@@ -20,7 +21,7 @@ export class Auth extends React.Component<IAuthProps, IAuthState> {
   }
 
   handleAuthSubmit = (values: ICredentials) => {
-    this.props.authHandler(values.login, values.password)
+    this.props.login(values.login, values.password)
   }
 
   render() {
@@ -48,8 +49,6 @@ export class Auth extends React.Component<IAuthProps, IAuthState> {
   }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  authHandler: (name: string, password: string) => { dispatch(login(name, password)) }
-})
+const mapDispatchToProps: IAuthDispatchProps = { login }
 
 export default connect(undefined, mapDispatchToProps)(Auth)

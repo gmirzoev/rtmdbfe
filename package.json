@@ -58,6 +58,7 @@
     ]
   },
   "dependencies": {
+    "autobind-decorator": "2.3.1",
     "classnames": "2.2.6",
     "normalize.css": "8.0.1",
     "react": "16.6.3",
@@ -89,6 +90,7 @@
     "autoprefixer": "9.3.1",
     "awesome-typescript-loader": "5.2.1",
     "case-sensitive-paths-webpack-plugin": "2.1.2",
+    "copy-webpack-plugin": "4.6.0",
     "css-loader": "1.0.1",
     "deep-freeze": "0.0.1",
     "enzyme": "3.7.0",
@@ -117,7 +119,8 @@
     "webpack": "4.26.0",
     "webpack-bundle-analyzer": "3.0.3",
     "webpack-cli": "3.1.2",
-    "webpack-dev-server": "3.1.10"
+    "webpack-dev-server": "3.1.10",
+    "workbox-webpack-plugin": "3.6.3"
   },
   "license": "MIT",
   "author": "gmirzoev"

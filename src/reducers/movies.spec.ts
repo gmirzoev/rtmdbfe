@@ -1,7 +1,7 @@
 import * as deepFreeze from 'deep-freeze'
 import {
-  GET_MOVIES_PENDING,
   GET_MOVIES_FULFILLED,
+  GET_MOVIES_PENDING,
   GET_MOVIES_REJECTED,
 } from 'constants/actionTypes'
 import reducer, { initialState, IMoviesState } from './movies'
