@@ -1,6 +1,7 @@
-import * as React from 'react'
-import * as classNames from 'classnames'
-import * as styles from './MoviesPagination.scss'
+import React from 'react'
+import classNames from 'classnames'
+import { IMoviesPaginationProps as IProps } from './MoviesPagination.interfaces'
+import styles from './MoviesPagination.scss'
 
 export const buildPagesArr = (pagesCount: number, activePage: number, visiblePages: number) => {
   let pagesArr = []
@@ -25,13 +26,7 @@ export const buildPagesArr = (pagesCount: number, activePage: number, visiblePag
   return pagesArr
 }
 
-interface IMoviesPaginationProps {
-  pagesCount: number;
-  activePage: number;
-  onPageChange: Function;
-}
-
-export default class MoviesPagination extends React.PureComponent<IMoviesPaginationProps> {
+export default class MoviesPagination extends React.PureComponent<IProps> {
   render() {
     const { pagesCount, activePage, onPageChange } = this.props
 

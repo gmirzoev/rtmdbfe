@@ -1,3 +1,4 @@
+import { toastr } from 'react-redux-toastr'
 import { Generic } from 'constants/actionTypes'
 import { Utils } from 'utils'
 
@@ -6,17 +7,17 @@ export function getTmdbConfig() {
   const requestUrl = `${API_HOST}/${API_VERSION}/configuration?api_key=${API_KEY}`
   return {
     type: Generic.FETCH_TMDB_CONF,
-    payload: async () => {
+    async payload () {
       try {
-        const tmdbCfgResponse = await fetch(requestUrl)
-        if (!tmdbCfgResponse.ok) {
+        const res = await fetch(requestUrl)
+        if (res.status < 200 || res.status >= 400) {
           throw new Error('Something went wrong while fetching tmdb config')
         }
-        const tmdbCfg = await tmdbCfgResponse.json()
+        const tmdbCfg = await res.json()
         window.__TMDB_CONFIG__ = tmdbCfg
-        return null
-      } catch (err) {
-        return Utils.handleError(err.message)
+      } catch (e) {
+        toastr.error('Error', e.message)
+        throw e
       }
     }
   }

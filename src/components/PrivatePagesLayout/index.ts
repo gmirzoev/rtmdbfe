@@ -1,1 +1,1 @@
-export { default, INavLink } from './PrivatePagesLayout'
+export { default } from './PrivatePagesLayout'

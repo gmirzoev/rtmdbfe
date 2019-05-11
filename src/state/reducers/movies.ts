@@ -1,48 +1,51 @@
 import { AnyAction } from 'redux'
-import {
-  GET_MOVIES_FULFILLED,
-  GET_MOVIES_PENDING,
-  GET_MOVIES_REJECTED
-} from 'constants/actionTypes'
+import { Movies } from 'constants/actionTypes'
 import { IMovie } from 'components/MoviesList'
+import { pending, fulfilled, rejected } from './utils'
 
 export interface IMoviesState {
-  readonly isFetching: boolean;
   readonly items: ReadonlyArray<IMovie>;
   readonly pages: number;
+  readonly fetching: boolean;
   readonly error: boolean;
 }
 
-export const initialState = {
-  isFetching: false,
+export const initialState: IMoviesState = {
   items: [],
   pages: 0,
+  fetching: false,
   error: false
 }
 
 export default function moviesReducer(state: IMoviesState = initialState,
                                       action: AnyAction): IMoviesState {
   switch (action.type) {
-    case GET_MOVIES_PENDING:
+    case pending(Movies.FETCH_MOVIES):
       return {
         ...state,
-        isFetching: true,
+        fetching: true,
         error: false
       }
-    case GET_MOVIES_FULFILLED:
+    case fulfilled(Movies.FETCH_MOVIES):
       return {
         ...state,
-        isFetching: false,
+        fetching: false,
         items: action.payload.movies,
         pages: action.payload.pages
       }
-    case GET_MOVIES_REJECTED:
+    case rejected(Movies.FETCH_MOVIES):
       return {
         ...state,
-        isFetching: false,
+        fetching: false,
         error: true
       }
     default:
       return state
   }
 }
+
+/* LOCAL SELECTORS */
+export const selectMovies = (state: IMoviesState) => state.items
+export const selectPages = (state: IMoviesState) => state.pages
+export const selectFetching = (state: IMoviesState) => state.fetching
+export const selectError = (state: IMoviesState) => state.error

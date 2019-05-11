@@ -29,16 +29,6 @@ interface ITmdbConfig {
   [key: string]: any;
 }
 
-interface ICredentials {
-  login: string;
-  password: string;
-}
-
-interface IUser {
-  login: string;
-  password: string;
-}
-
 interface IAppConfig {
   stand: IStandConfig;
   tmdb: ITmdbConfig;

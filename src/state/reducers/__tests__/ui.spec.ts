@@ -1,6 +1,5 @@
-import * as deepFreeze from 'deep-freeze'
-import { HIDE_NAVIGATION, TOGGLE_NAVIGATION } from 'constants/actionTypes'
-import reducer, { initialState, IUiState } from './ui'
+import { Ui } from 'constants/actionTypes'
+import reducer, { initialState, IUiState } from '../ui'
 
 describe('Ui reducer', () => {
   it('should return initial state', () => {
@@ -10,21 +9,21 @@ describe('Ui reducer', () => {
   })
 
   it('should handle HIDE_NAVIGATION action', () => {
-    const previousState: IUiState = deepFreeze({ isNavigationVisible: true })
-    const sampleAction = { type: HIDE_NAVIGATION }
+    const previousState: IUiState = { navigationVisible: true }
+    const sampleAction = { type: Ui.HIDE_NAVIGATION }
     const expectedResult: IUiState = {
       ...previousState,
-      isNavigationVisible: false
+      navigationVisible: false
     }
     expect(reducer(previousState, sampleAction)).toEqual(expectedResult)
   })
 
   it('should handle TOGGLE_NAVIGATION action', () => {
-    const previousState: IUiState = deepFreeze({ isNavigationVisible: false })
-    const sampleAction = { type: TOGGLE_NAVIGATION }
+    const previousState: IUiState = { navigationVisible: false }
+    const sampleAction = { type: Ui.TOGGLE_NAVIGATION }
     const expectedResult: IUiState = {
       ...previousState,
-      isNavigationVisible: true
+      navigationVisible: true
     }
     expect(reducer(previousState, sampleAction)).toEqual(expectedResult)
   })

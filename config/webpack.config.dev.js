@@ -4,8 +4,6 @@ const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
-const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
-const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = ({ env, projectRoot }) => {
@@ -13,10 +11,7 @@ module.exports = ({ env, projectRoot }) => {
     mode: 'development',
     devtool: 'cheap-module-eval-source-map',
     context: path.join(projectRoot, 'src'),
-    entry: [
-      'react-dev-utils/webpackHotDevClient',
-      './index.tsx'
-    ],
+    entry: [ './index.tsx' ],
     output: {
       path: path.join(projectRoot, 'dist'),
       pathinfo: true,
@@ -26,7 +21,7 @@ module.exports = ({ env, projectRoot }) => {
       devtoolModuleFilenameTemplate: info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')
     },
     resolve: {
-      modules: [ './node_modules', './src' ],
+      modules: [ 'node_modules', './src' ],
       extensions: [ '.ts', '.tsx', '.js', '.jsx', '.json' ]
     },
     module: {
@@ -36,10 +31,7 @@ module.exports = ({ env, projectRoot }) => {
           test: /\.tsx?$/,
           enforce: 'pre',
           include: path.join(projectRoot, 'src'),
-          loader: 'tslint-loader',
-          options: {
-            typeCheck: true
-          }
+          loader: 'tslint-loader'
         },
         {
           test: /\.js$/,
@@ -130,6 +122,18 @@ module.exports = ({ env, projectRoot }) => {
         }
       ]
     },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          default: false,
+          commons: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendor',
+            chunks: 'all'
+          }
+        }
+      }
+    },
     plugins: [
       new HtmlWebpackPlugin({
         template: './index.html',
@@ -142,7 +146,6 @@ module.exports = ({ env, projectRoot }) => {
         'window.__STAND_CONFIG__': JSON.stringify(require('../standConfig'))
       }),
       new webpack.HotModuleReplacementPlugin(),
-      new CaseSensitivePathsPlugin(),
       new CopyWebpackPlugin([
         {
           from: path.join(projectRoot, 'src/manifest.json'),
@@ -161,19 +164,14 @@ module.exports = ({ env, projectRoot }) => {
     devServer: {
       compress: true,
       clientLogLevel: 'none',
-      contentBase: '/',
-      watchContentBase: true,
       hot: true,
       publicPath: '/',
       watchOptions: {
         ignored: /node_modules/
       },
-      overlay: false,
+      overlay: true,
       historyApiFallback: {
         disableDotRule: true
-      },
-      before(app) {
-        app.use(errorOverlayMiddleware())
       }
     },
     node: {

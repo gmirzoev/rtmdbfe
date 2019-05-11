@@ -1,6 +1,4 @@
 // tslint:disable:no-any
-import { toastr } from 'react-redux-toastr'
-
 export default class Utils {
   /* Returns application configuration data */
   public static getConfig(): IAppConfig {
@@ -8,13 +6,6 @@ export default class Utils {
       stand: window.__STAND_CONFIG__,
       tmdb: window.__TMDB_CONFIG__
     }
-  }
-
-  /* Error handling helper function */
-  public static handleError(errMsg: string = 'Unknown error occured',
-                            errTitle: string = ''): never {
-    toastr.error(errTitle, errMsg)
-    throw new Error(errMsg)
   }
 
   /* Adds hostname for provided path */

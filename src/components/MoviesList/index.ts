@@ -1,1 +1,2 @@
-export { default, IMovie } from './MoviesList'
+export { default } from './MoviesList'
+export { IMovie } from './MoviesList.interfaces'

@@ -1,10 +1,6 @@
-import * as deepFreeze from 'deep-freeze'
-import {
-  SEARCH_MOVIE_FULFILLED,
-  SEARCH_MOVIE_PENDING,
-  SEARCH_MOVIE_REJECTED,
-} from 'constants/actionTypes'
-import reducer, { initialState, ISearchState } from './search'
+import { Movies } from 'constants/actionTypes'
+import { pending, fulfilled, rejected } from 'state/reducers'
+import reducer, { initialState, ISearchState } from '../search'
 
 describe('Search reducer', () => {
   it('should return initial state', () => {
@@ -14,18 +10,18 @@ describe('Search reducer', () => {
   })
 
   it('should handle SEARCH_MOVIE_PENDING', () => {
-    const previousState: ISearchState = deepFreeze({ ...initialState })
-    const sampleAction = { type: SEARCH_MOVIE_PENDING }
+    const previousState: ISearchState = { ...initialState }
+    const sampleAction = { type: pending(Movies.SEARCH_MOVIE) }
     const expectedResult: ISearchState = {
       ...initialState,
-      isFetching: true,
+      fetching: true,
       error: false
     }
     expect(reducer(previousState, sampleAction)).toEqual(expectedResult)
   })
 
   it('should handle SEARCH_MOVIE_FULFILLED', () => {
-    const previousState: ISearchState = deepFreeze({ ...initialState })
+    const previousState: ISearchState = { ...initialState }
     const sampleMovies = [
       { id: '1', title: 'Some movie1', overview: 'Movie description1', poster_path: '' },
       { id: '2', title: 'Some movie2', overview: 'Movie description2', poster_path: '' },
@@ -33,7 +29,7 @@ describe('Search reducer', () => {
       { id: '4', title: 'Some movie4', overview: 'Movie description4', poster_path: '' }
     ]
     const sampleAction = {
-      type: SEARCH_MOVIE_FULFILLED,
+      type: fulfilled(Movies.SEARCH_MOVIE),
       payload: {
         movies: sampleMovies,
         pages: sampleMovies.length
@@ -41,7 +37,7 @@ describe('Search reducer', () => {
     }
     const expectedResult: ISearchState = {
       ...initialState,
-      isFetching: false,
+      fetching: false,
       items: sampleMovies,
       pages: sampleMovies.length
     }
@@ -49,11 +45,11 @@ describe('Search reducer', () => {
   })
 
   it('should handle SEARCH_MOVIE_REJECTED', () => {
-    const previousState: ISearchState = deepFreeze({ ...initialState })
-    const sampleAction = { type: SEARCH_MOVIE_REJECTED }
+    const previousState: ISearchState = { ...initialState }
+    const sampleAction = { type: rejected(Movies.SEARCH_MOVIE) }
     const expectedResult: ISearchState = {
       ...initialState,
-      isFetching: false,
+      fetching: false,
       error: true
     }
     expect(reducer(previousState, sampleAction)).toEqual(expectedResult)

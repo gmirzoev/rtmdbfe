@@ -63,7 +63,6 @@
         "no-switch-case-fall-through": true,
         "no-trailing-whitespace": false,
         "no-unused-expression": true,
-        "no-use-before-declare": true,
         "one-line": [
           true,
           "check-catch",
@@ -71,11 +70,6 @@
           "check-open-brace",
           "check-whitespace"
         ],
-        "ordered-imports": [ true, {
-          "grouped-imports": true,
-          "import-sources-order": "any",
-          "named-imports-order": "lowercase-first"
-        } ],
         "quotemark": [ true, "single", "jsx-double" ],
         "radix": true,
         "semicolon": [ true, "never", "ignore-interfaces" ],

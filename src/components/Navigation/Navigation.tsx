@@ -1,16 +1,10 @@
-import * as React from 'react'
-import * as classNames from 'classnames'
+import React from 'react'
+import classNames from 'classnames'
 import { NavLink } from 'react-router-dom'
-import { INavLink } from 'components/PrivatePagesLayout'
-import * as styles from './Navigation.scss'
+import { INavigationProps as IProps } from './Navigation.interfaces'
+import styles from './Navigation.scss'
 
-interface INavigationProps {
-  isVisible: boolean;
-  links: INavLink[];
-  onLogout(): void;
-}
-
-export default class Navigation extends React.Component<INavigationProps> {
+export default class Navigation extends React.Component<IProps> {
   render() {
     const { isVisible, links, onLogout } = this.props
     return (

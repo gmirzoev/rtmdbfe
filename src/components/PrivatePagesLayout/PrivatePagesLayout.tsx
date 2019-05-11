@@ -1,37 +1,21 @@
-import * as React from 'react'
+import React from 'react'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { getTmdbConfig } from 'actions/initActions'
-import { toggleNavigation } from 'actions/uiActions'
-import { hideNavigation } from 'actions/uiActions'
-import { logout } from 'actions/authActions'
-import { IAppState } from 'reducers'
+import { IAppState } from 'state'
+import { getTmdbConfig, hideNavigation, toggleNavigation, logout } from 'state/actions'
+import { selectInitialized, selectInitError, selectNavigationVisible } from 'state/selectors'
 import Header from 'components/Header'
 import Navigation from 'components/Navigation'
 import Main from 'components/Main'
 import Footer from 'components/Footer'
 import LoadingIndicator from 'components/LoadingIndicator'
 import AppInitError from 'components/AppInitError'
-import * as styles from './PrivatePagesLayout.scss'
+import { IPrivatePagesLayoutProps as IProps } from './PrivatePagesLayout.interfaces'
+import styles from './PrivatePagesLayout.scss'
 
-export interface INavLink {
-  title: string;
-  url: string;
-}
-
-export interface IPrivatePagesLayoutProps {
-  isAppInitialized: boolean;
-  initializationError: boolean;
-  isNavigationVisible: boolean;
-  handleHideNavigation(): void;
-  handleToggleNavigation(): void;
-  handleLogout(): void;
-  getTmdbConfig(): void;
-}
-
-class PrivatePagesLayout extends React.Component<IPrivatePagesLayoutProps> {
-  navigationEl: HTMLElement|null = null
-  links: INavLink[] = [
+class PrivatePagesLayout extends React.Component<IProps> {
+  navigationEl: HTMLElement | null = null
+  links = [
     { title: 'Now playing', url: '/movies/now_playing' },
     { title: 'Popular', url: '/movies/popular' },
     { title: 'Top', url: '/movies/top_rated' },
@@ -96,9 +80,9 @@ class PrivatePagesLayout extends React.Component<IPrivatePagesLayoutProps> {
 }
 
 const mapStateToProps = (state: IAppState) => ({
-  isAppInitialized: state.init.isInitialized,
-  initializationError: state.init.error,
-  isNavigationVisible: state.ui.isNavigationVisible
+  isAppInitialized: selectInitialized(state),
+  initializationError: selectInitError(state),
+  isNavigationVisible: selectNavigationVisible(state)
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

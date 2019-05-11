@@ -3,12 +3,12 @@ import { Generic } from 'constants/actionTypes'
 import { fulfilled, pending, rejected } from './utils'
 
 export interface IInitState {
-  readonly isInitialized: boolean;
+  readonly initialized: boolean;
   readonly error: boolean;
 }
 
 export const initialState = {
-  isInitialized: false,
+  initialized: false,
   error: false
 }
 
@@ -20,15 +20,19 @@ export default function initReducer(state: IInitState = initialState,
     case fulfilled(Generic.FETCH_TMDB_CONF):
       return {
         ...state,
-        isInitialized: true
+        initialized: true
       }
     case rejected(Generic.FETCH_TMDB_CONF):
       return {
         ...state,
-        isInitialized: true,
+        initialized: true,
         error: true
       }
     default:
       return state
   }
 }
+
+/* LOCAL SELECTORS */
+export const selectInitialized = (state: IInitState) => state.initialized
+export const selectError = (state: IInitState) => state.error

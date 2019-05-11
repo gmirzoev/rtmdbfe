@@ -1,11 +1,11 @@
-import rootReducer from 'reducers'
+import rootReducer from 'state/reducers'
 import { applyMiddleware, compose, createStore } from 'redux'
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant'
 import promiseMiddleware from 'redux-promise-middleware'
 import thunk from 'redux-thunk'
 
 let composeEnhancers = compose
-const middleware = [thunk, promiseMiddleware()]
+const middleware = [thunk, promiseMiddleware]
 
 if (process.env.NODE_ENV !== 'production') {
   middleware.push(reduxImmutableStateInvariant())
@@ -16,7 +16,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const enhancer = composeEnhancers(applyMiddleware(...middleware))
 
-export default function configureStore(initialState?: object) {
+export function configureStore(initialState?: object) {
   return createStore(
     rootReducer,
     initialState,

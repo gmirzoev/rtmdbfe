@@ -26,7 +26,7 @@ module.exports = ({ env, projectRoot }) => {
       }
     },
     resolve: {
-      modules: [ './node_modules', './src' ],
+      modules: [ 'node_modules', './src' ],
       extensions: [ '.ts', '.tsx', '.js', '.jsx', '.json' ]
     },
     module: {
@@ -36,10 +36,7 @@ module.exports = ({ env, projectRoot }) => {
           test: /\.tsx?$/,
           enforce: 'pre',
           include: path.join(projectRoot, 'src'),
-          loader: 'tslint-loader',
-          options: {
-            typeCheck: true
-          }
+          loader: 'tslint-loader'
         },
         {
           test: /\.js$/,
@@ -127,11 +124,11 @@ module.exports = ({ env, projectRoot }) => {
     optimization: {
       splitChunks: {
         cacheGroups: {
-          styles: {
-            name: 'styles',
-            test: /\.css$/,
-            chunks: 'all',
-            enforce: true
+          default: false,
+          commons: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendor',
+            chunks: 'all'
           }
         }
       }

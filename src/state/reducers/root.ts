@@ -29,7 +29,7 @@ const appReducer = combineReducers<IAppState>({
   toastr: toastrReducer
 })
 
-export default function rootReducer (state: IAppState, action: AnyAction) {
+export default function rootReducer (state: IAppState | undefined, action: AnyAction) {
   if (action.type === fulfilled(Auth.LOGOUT)) {
     return appReducer(undefined, action)
   }

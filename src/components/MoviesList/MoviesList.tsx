@@ -1,19 +1,9 @@
-import * as React from 'react'
+import React from 'react'
 import { Utils } from 'utils'
 import MovieCard from 'components/MovieCard'
+import { IMoviesListProps as IProps } from './MoviesList.interfaces'
 
-export interface IMovie {
-  id: string;
-  title: string;
-  overview: string;
-  poster_path: string;
-}
-
-interface IMoviesListProps {
-  movies: ReadonlyArray<IMovie>;
-}
-
-export default class MoviesList extends React.Component<IMoviesListProps> {
+export default class MoviesList extends React.Component<IProps> {
   render() {
     const { secure_base_url: BASE_URL, poster_sizes } = Utils.getConfig().tmdb.images
     return (

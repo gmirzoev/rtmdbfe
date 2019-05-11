@@ -1,10 +1,6 @@
-import * as deepFreeze from 'deep-freeze'
-import {
-  GET_MOVIES_FULFILLED,
-  GET_MOVIES_PENDING,
-  GET_MOVIES_REJECTED,
-} from 'constants/actionTypes'
-import reducer, { initialState, IMoviesState } from './movies'
+import { Movies } from 'constants/actionTypes'
+import { pending, fulfilled, rejected } from 'state/reducers'
+import reducer, { initialState, IMoviesState } from '../movies'
 
 describe('Movies reducer', () => {
   it('should return initial state', () => {
@@ -14,18 +10,18 @@ describe('Movies reducer', () => {
   })
 
   it('should handle GET_MOVIES_PENDING', () => {
-    const previousState: IMoviesState = deepFreeze({ ...initialState })
-    const sampleAction = { type: GET_MOVIES_PENDING }
+    const previousState: IMoviesState = { ...initialState }
+    const sampleAction = { type: pending(Movies.FETCH_MOVIES) }
     const expectedResult: IMoviesState = {
       ...initialState,
-      isFetching: true,
+      fetching: true,
       error: false
     }
     expect(reducer(previousState, sampleAction)).toEqual(expectedResult)
   })
 
   it('should handle GET_MOVIES_FULFILLED', () => {
-    const previousState: IMoviesState = deepFreeze({ ...initialState })
+    const previousState: IMoviesState = { ...initialState }
     const sampleMovies = [
       { id: '1', title: 'Some movie1', overview: 'Movie description1', poster_path: '' },
       { id: '2', title: 'Some movie2', overview: 'Movie description2', poster_path: '' },
@@ -33,7 +29,7 @@ describe('Movies reducer', () => {
       { id: '4', title: 'Some movie4', overview: 'Movie description4', poster_path: '' }
     ]
     const sampleAction = {
-      type: GET_MOVIES_FULFILLED,
+      type: fulfilled(Movies.FETCH_MOVIES),
       payload: {
         movies: sampleMovies,
         pages: sampleMovies.length
@@ -41,7 +37,7 @@ describe('Movies reducer', () => {
     }
     const expectedResult: IMoviesState = {
       ...initialState,
-      isFetching: false,
+      fetching: false,
       items: sampleMovies,
       pages: sampleMovies.length
     }
@@ -49,11 +45,11 @@ describe('Movies reducer', () => {
   })
 
   it('should handle GET_MOVIES_REJECTED', () => {
-    const previousState: IMoviesState = deepFreeze({ ...initialState })
-    const sampleAction = { type: GET_MOVIES_REJECTED }
+    const previousState: IMoviesState = { ...initialState }
+    const sampleAction = { type: rejected(Movies.FETCH_MOVIES) }
     const expectedResult: IMoviesState = {
       ...initialState,
-      isFetching: false,
+      fetching: false,
       error: true
     }
     expect(reducer(previousState, sampleAction)).toEqual(expectedResult)

@@ -1,16 +1,11 @@
-import * as React from 'react'
-import { Store } from 'redux'
+import React from 'react'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import ReduxToastr from 'react-redux-toastr'
-import { IAppState } from 'reducers'
+import { IRootProps as IProps } from './Root.interfaces'
 import App from 'components/App'
 
-interface IRootProps {
-  store: Store<IAppState>;
-}
-
-export default class Root extends React.Component<IRootProps> {
+export default class Root extends React.Component<IProps> {
   render() {
     const { store } = this.props
     return (

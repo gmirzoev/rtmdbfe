@@ -1,26 +1,23 @@
-import * as React from 'react'
-import reduxForm, { InjectedFormProps } from 'redux-form/lib/reduxForm'
-import Field, { WrappedFieldProps } from 'redux-form/lib/Field'
-import * as styles from './SearchForm.scss'
+import React from 'react'
+import reduxForm from 'redux-form/lib/reduxForm'
+import Field from 'redux-form/lib/Field'
+import {
+  IFormData,
+  ISearchInputFieldProps,
+  ISearchFormProps as IProps
+} from './SearchForm.interfaces'
+import styles from './SearchForm.scss'
 
-interface ISearchForm {
-  search: string;
-}
-
-const validate = (values: ISearchForm) => {
-  const errors: Partial<ISearchForm> = {}
+const validate = (values: IFormData) => {
+  const errors: Partial<IFormData> = {}
   if (!values.search) {
     errors.search = 'There is nothing to search'
   }
   return errors
 }
 
-interface ISearchFieldProps {
-  type: string;
-}
-
-class RenderSearchField extends React.Component<ISearchFieldProps & WrappedFieldProps> {
-  searchInput: HTMLInputElement|null = null
+class SearchInputField extends React.Component<ISearchInputFieldProps> {
+  searchInput: HTMLInputElement | null = null
 
   componentDidMount() {
     if (this.searchInput) {
@@ -47,7 +44,7 @@ class RenderSearchField extends React.Component<ISearchFieldProps & WrappedField
   }
 }
 
-class SearchForm extends React.Component<InjectedFormProps<ISearchForm>> {
+class SearchForm extends React.Component<IProps> {
   render () {
     const { handleSubmit, submitting } = this.props
     return (
@@ -58,7 +55,7 @@ class SearchForm extends React.Component<InjectedFormProps<ISearchForm>> {
         <Field
           name="search"
           type="text"
-          component={RenderSearchField}
+          component={SearchInputField}
         />
         <button
           className={styles.searchFormBtn}

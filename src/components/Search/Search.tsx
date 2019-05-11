@@ -1,29 +1,24 @@
-import * as React from 'react'
+import React from 'react'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { Utils } from 'utils'
-import { searchMovies } from 'actions/searchActions'
-import { IAppState } from 'reducers'
-import MoviesList, { IMovie } from 'components/MoviesList'
+import { IAppState } from 'state'
+import { searchMovies } from 'state/actions'
+import { selectSearchMovies, selectSearchFetching } from 'state/selectors'
+import MoviesList from 'components/MoviesList'
 import LoadingIndicator from 'components/LoadingIndicator'
 import SearchForm from './SearchForm'
+import {
+  ISearchProps as IProps,
+  ISearchState as IState
+} from './Search.interfaces'
 
-interface ISearchProps {
-  isFetching: boolean;
-  movies: IMovie[];
-  searchMovies(query: string, page: number): void;
-}
-
-interface ISearchState {
-  lastSearchRequest: string;
-}
-
-class Search extends React.Component<ISearchProps, ISearchState> {
+class Search extends React.Component<IProps, IState> {
   state = {
     lastSearchRequest: ''
   }
 
-  constructor (props: ISearchProps) {
+  constructor (props: IProps) {
     super(props)
     this.handleSearchInputChange = Utils.debounce(this.handleSearchInputChange.bind(this), 800)
   }
@@ -52,8 +47,8 @@ class Search extends React.Component<ISearchProps, ISearchState> {
 }
 
 const mapStateToProps = (state: IAppState) => ({
-  isFetching: state.search.isFetching,
-  movies: state.search.items
+  movies: selectSearchMovies(state),
+  isFetching: selectSearchFetching(state)
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({

@@ -1,27 +1,27 @@
-import * as React from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { login } from 'actions/authActions'
+import { login } from 'state/actions'
 import Footer from 'components/Footer'
 import AuthForm from './AuthForm'
-import * as styles from './Auth.scss'
+import { IFormValues } from './AuthForm.interfaces'
+import {
+  IAuthDispatchProps as IDispatchProps,
+  IAuthProps as IProps,
+  IAuthState as IState
+} from './Auth.interfaces'
+import styles from './Auth.scss'
 
-interface IAuthDispatchProps {
-  login(name: string, password: string): void;
-}
-
-type IAuthProps = IAuthDispatchProps
-
-interface IAuthState {
-  users: IUser[];
-}
-
-export class Auth extends React.Component<IAuthProps, IAuthState> {
+export class Auth extends React.Component<IProps, IState> {
   state = {
-    users: JSON.parse(localStorage.getItem('users') || '[]')
+    users: [ // Demo users for auth page
+      { name: 'John', role: 'user', login: 'john' },
+      { name: 'Kate', role: 'user', login: 'kate' },
+      { name: 'Monty', role: 'admin', login: 'monty' }
+    ]
   }
 
-  handleAuthSubmit = (values: ICredentials) => {
-    this.props.login(values.login, values.password)
+  handleAuthSubmit = (values: IFormValues) => {
+    this.props.login(values.login)
   }
 
   render() {
@@ -30,12 +30,12 @@ export class Auth extends React.Component<IAuthProps, IAuthState> {
         <div className={styles.authAvailableUsers}>
           <div className={styles.authAvailableUsersTitle}>Available users list</div>
           <div>
-            {this.state.users && this.state.users.map((user: IUser) => (
+            {this.state.users.map(user => (
               <div
                 key={user.login}
                 className={styles.authAvailableUsersItem}
               >
-                {`{ login: ${user.login}, password: ${user.password} }`}
+                {`{ login: ${user.login} }`}
               </div>
             ))}
           </div>
@@ -49,6 +49,6 @@ export class Auth extends React.Component<IAuthProps, IAuthState> {
   }
 }
 
-const mapDispatchToProps: IAuthDispatchProps = { login }
+const mapDispatchToProps: IDispatchProps = { login }
 
-export default connect(undefined, mapDispatchToProps)(Auth)
+export default connect(null, mapDispatchToProps)(Auth)

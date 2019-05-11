@@ -1,5 +1,5 @@
-import * as React from 'react'
-import * as styles from './LoadingIndicator.scss'
+import React from 'react'
+import styles from './LoadingIndicator.scss'
 
 export default class LoadingIndicator extends React.Component {
   render() {

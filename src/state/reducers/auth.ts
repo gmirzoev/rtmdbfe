@@ -1,17 +1,17 @@
 import { AnyAction } from 'redux'
 import { Auth } from 'constants/actionTypes'
+import { ILoginAction } from 'state/actions/auth'
 import { fulfilled, pending, rejected } from './utils'
+import { IPayload } from './interfaces'
 
 export interface IAuthState {
-  readonly isFetching: boolean;
-  readonly user: string | null;
-  readonly error: boolean;
+  readonly user: IPayload<ILoginAction> | null;
+  readonly pending: boolean;
 }
 
-export const initialState = {
-  isFetching: false,
-  user: sessionStorage.getItem('user'),
-  error: false
+export const initialState: IAuthState = {
+  user: JSON.parse(sessionStorage.getItem('user') as string),
+  pending: false
 }
 
 export default function authReducer(state: IAuthState = initialState,
@@ -20,38 +20,30 @@ export default function authReducer(state: IAuthState = initialState,
     case pending(Auth.LOGIN):
       return {
         ...state,
-        isFetching: true,
-        error: false
+        pending: true
       }
     case fulfilled(Auth.LOGIN):
       return {
         ...state,
-        isFetching: false,
-        user: action.payload.user
+        user: action.payload,
+        pending: false
       }
     case rejected(Auth.LOGIN):
       return {
         ...state,
-        isFetching: false,
-        error: true
+        user: null,
+        pending: false
       }
     case pending(Auth.LOGOUT):
       return {
         ...state,
-        isFetching: true,
-        error: false
-      }
-    case fulfilled(Auth.LOGOUT):
-      return {
-        ...initialState
-      }
-    case rejected(Auth.LOGOUT):
-      return {
-        ...state,
-        isFetching: false,
-        error: true
+        pending: true
       }
     default:
       return state
   }
 }
+
+/* LOCAL SELECTORS */
+export const selectUser = (state: IAuthState) => state.user
+export const selectPending = (state: IAuthState) => state.pending

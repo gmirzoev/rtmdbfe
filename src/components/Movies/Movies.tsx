@@ -1,37 +1,31 @@
-import * as React from 'react'
+import React from 'react'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { RouteComponentProps } from 'react-router-dom'
-import { getMovies } from 'actions/moviesActions'
-import { IAppState } from 'reducers'
+import { IAppState } from 'state'
+import { fetchMovies } from 'state/actions'
+import { selectMoviesFetching, selectMoviesPages, selectMovies } from 'state/selectors'
 import MoviesPagination from 'components/MoviesPagination'
-import MoviesList, { IMovie } from 'components/MoviesList'
+import MoviesList from 'components/MoviesList'
 import LoadingIndicator from 'components/LoadingIndicator'
-import * as styles from './Movies.scss'
+import { IMoviesProps as IProps } from './Movies.interfaces'
+import styles from './Movies.scss'
 
-type IMoviesProps = {
-  isFetching: boolean
-  pagesCount: number
-  movies: ReadonlyArray<IMovie>
-  getMovies(type: string, page: number): void
-} & RouteComponentProps<{type: string, page: string}>
-
-export class Movies extends React.Component<IMoviesProps> {
-  constructor(props: IMoviesProps) {
+export class Movies extends React.Component<IProps> {
+  constructor(props: IProps) {
     super(props)
     this.changePage = this.changePage.bind(this)
   }
 
   componentDidMount() {
     const page = parseInt(this.props.match.params.page, 10) || 1
-    this.props.getMovies(this.props.match.params.type, page)
+    this.props.fetchMovies(this.props.match.params.type, page)
   }
 
-  componentDidUpdate (prevProps: IMoviesProps) {
+  componentDidUpdate (prevProps: IProps) {
     if (this.props.match.params.type !== prevProps.match.params.type ||
         this.props.match.params.page !== prevProps.match.params.page) {
       const page = parseInt(this.props.match.params.page, 10) || 1
-      this.props.getMovies(this.props.match.params.type, page)
+      this.props.fetchMovies(this.props.match.params.type, page)
     }
   }
 
@@ -57,13 +51,13 @@ export class Movies extends React.Component<IMoviesProps> {
 }
 
 const mapStateToProps = (state: IAppState) => ({
-  isFetching: state.movies.isFetching,
-  pagesCount: state.movies.pages,
-  movies: state.movies.items
+  movies: selectMovies(state),
+  pagesCount: selectMoviesPages(state),
+  isFetching: selectMoviesFetching(state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  getMovies: (type: string, page: number) => { dispatch(getMovies(type, page)) }
+  fetchMovies: (type: string, page: number) => { dispatch(fetchMovies(type, page)) }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Movies)

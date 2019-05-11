@@ -1,15 +1,13 @@
-import * as React from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { boundMethod } from 'autobind-decorator'
 import { Redirect, Route, Switch } from 'react-router-dom'
-import { IAppState } from 'reducers'
+import { IAppState } from 'state'
+import { selectUser } from 'state/selectors'
 import asyncComponent from 'components/AsyncComponent'
+import { IAppProps as IProps } from './App.interfaces'
 
-interface IAppProps {
-  isRegistered: boolean;
-}
-
-class App extends React.Component<IAppProps> {
+class App extends React.Component<IProps> {
   private static AsyncAuth: React.ComponentClass
   private static AsyncPrivatePages: React.ComponentClass
 
@@ -59,7 +57,7 @@ class App extends React.Component<IAppProps> {
 }
 
 const mapStateToProps = (state: IAppState) => ({
-  isRegistered: !!state.auth.user,
+  isRegistered: !!selectUser(state),
 })
 
 export default connect(mapStateToProps)(App)

@@ -1,26 +1,23 @@
-import * as React from 'react'
-import * as classNames from 'classnames'
-import reduxForm, { InjectedFormProps } from 'redux-form/lib/reduxForm'
-import Field, { WrappedFieldProps } from 'redux-form/lib/Field'
-import * as styles from './AuthForm.scss'
+import React from 'react'
+import classNames from 'classnames'
+import reduxForm from 'redux-form/lib/reduxForm'
+import Field from 'redux-form/lib/Field'
+import {
+  IFormValues,
+  IAuthInputFieldProps,
+  IAuthFormProps as IProps
+} from './AuthForm.interfaces'
+import styles from './AuthForm.scss'
 
-const validate = (values: ICredentials) => {
-  const errors: Partial<ICredentials> = {}
+const validate = (values: IFormValues) => {
+  const errors: Partial<IFormValues> = {}
   if (!values.login) {
     errors.login = 'Enter your login'
-  }
-  if (!values.password) {
-    errors.password = 'Enter your password'
   }
   return errors
 }
 
-interface IAuthInputFieldProps {
-  type: string;
-  placeholder: string;
-}
-
-class RenderInputField extends React.Component<IAuthInputFieldProps & WrappedFieldProps> {
+class AuthInputField extends React.Component<IAuthInputFieldProps> {
   render () {
     const { type, placeholder, input, meta } = this.props
     return (
@@ -43,7 +40,7 @@ class RenderInputField extends React.Component<IAuthInputFieldProps & WrappedFie
   }
 }
 
-class AuthForm extends React.Component<InjectedFormProps<ICredentials>> {
+class AuthForm extends React.Component<IProps> {
   render () {
     const { handleSubmit, submitting } = this.props
     return (
@@ -54,14 +51,8 @@ class AuthForm extends React.Component<InjectedFormProps<ICredentials>> {
         <Field
           name="login"
           type="text"
-          placeholder="Login..."
-          component={RenderInputField}
-        />
-        <Field
-          name="password"
-          type="password"
-          placeholder="Password..."
-          component={RenderInputField}
+          placeholder="Enter your login"
+          component={AuthInputField}
         />
         <button
           type="submit"

@@ -1,5 +1,5 @@
-import * as React from 'react'
-import * as styles from './AppInitError.scss'
+import React from 'react'
+import styles from './AppInitError.scss'
 
 export default class AppInitError extends React.Component {
   render() {

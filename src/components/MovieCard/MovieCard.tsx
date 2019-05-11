@@ -1,13 +1,8 @@
-import * as React from 'react'
-import * as styles from './MovieCard.scss'
+import React from 'react'
+import { IMovieCardProps as IProps } from './MovieCard.interfaces'
+import styles from './MovieCard.scss'
 
-interface IMovieCard {
-  title: string;
-  poster: string;
-  overview: string;
-}
-
-export default class MovieCard extends React.Component<IMovieCard> {
+export default class MovieCard extends React.Component<IProps> {
   render () {
     const { title, poster, overview } = this.props
     return (
